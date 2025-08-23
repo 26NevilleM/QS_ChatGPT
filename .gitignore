@@ -1,12 +1,50 @@
-# macOS junk
+# ==========================
+# macOS
+# ==========================
 .DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
 
-# Python cache
+# ==========================
+# Python
+# ==========================
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+.env
+.venv
+ENV/
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
 
-# Logs
+# ==========================
+# VSCode / JetBrains
+# ==========================
+.vscode/
+.idea/
+*.swp
+
+# ==========================
+# Logs & Temp
+# ==========================
+*.log
 vaultwatch*.log
+*.out
+*.err
 
+# ==========================
 # Smoke test artifacts
+# ==========================
 Q_Vault_v2.0.0_FULL/Vault/Changelog/*SmokeTest_Report.json
+
+# ==========================
+# GitHub Actions artifacts
+# ==========================
+*.zip
+*.tar.gz
+*.tgz
+*.bak
