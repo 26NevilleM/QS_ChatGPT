@@ -1,0 +1,55 @@
+name: Vault Smoketests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  smoketests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Resolve bundle path and expected version
+        id: resolve
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, os
+          root = pathlib.Path("Q_Vault_v2.0.0_FULL")
+          conf = root / "Vault/Modules/Config/Config_Master.json"
+          d = json.load(conf.open())
+          bundle_rel = d["orchestrator"]["default_bundle"]
+          bundle_abs = root / bundle_rel
+          expect = json.load(open(bundle_abs))["version"]
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              fh.write(f"bundle={bundle_abs}\n")
+              fh.write(f"expect={expect}\n")
+          PY
+
+      - name: Main Vault smoketest
+        run: |
+          python3 run_smoketest.py \
+            --bundle "${{ steps.resolve.outputs.bundle }}" \
+            --expect-version "${{ steps.resolve.outputs.expect }}" \
+            --check-modules "Q_Vault_v2.0.0_FULL/Vault/Modules/Compliance/LabourLaw_SA_UAE_v1.0.json,Q_Vault_v2.0.0_FULL/Vault/Modules/Compliance/Tax_Finance_v1.0.json,Q_Vault_v2.0.0_FULL/Vault/Modules/Compliance/Domain_DataProtection_SA_UAE_v1.0.json" \
+            --out "Q_Vault_v2.0.0_FULL/Vault/Changelog/Vault_Final_SmokeTest_Report.json"
+
+      - name: Data Protection smoketest
+        run: |
+          python3 smoketest_dp.py \
+            --file "Q_Vault_v2.0.0_FULL/Vault/Modules/Compliance/Domain_DataProtection_SA_UAE_v1.0.json" \
+            --out  "Q_Vault_v2.0.0_FULL/Vault/Changelog/DP_SmokeTest_Report.json"
+
+      - name: Upload smoke reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-reports
+          path: |
+            Q_Vault_v2.0.0_FULL/Vault/Changelog/*SmokeTest_Report.json
