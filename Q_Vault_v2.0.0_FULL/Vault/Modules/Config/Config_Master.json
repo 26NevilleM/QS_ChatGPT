@@ -1,0 +1,5 @@
+{
+  "orchestrator": {
+    "default_bundle": "Vault/Master/Q_Vault_v2.0.7_bundle.json"
+  }
+}

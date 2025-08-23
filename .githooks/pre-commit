@@ -1,0 +1,58 @@
+#!/bin/sh
+set -eu
+
+# Always run from repo root
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+# --- Main Vault smoketest (autodiscovers bundle + expected version) ---
+ROOT="Q_Vault_v2.0.0_FULL"
+REPORT="$ROOT/Vault/Changelog/Vault_Final_SmokeTest_Report.json"
+
+echo "[pre-commit] running main Vault smoketest..." >&2
+
+if [ -f "$REPO_ROOT/run_smoketest.py" ]; then
+  # Resolve bundle + expected version from Config_Master
+  eval "$(/usr/bin/python3 - <<'PY'
+import json, pathlib, sys
+root=pathlib.Path("Q_Vault_v2.0.0_FULL")
+conf=root/"Vault/Modules/Config/Config_Master.json"
+try:
+    d=json.load(conf.open())
+    bundle_rel=d["orchestrator"]["default_bundle"]
+    bundle_abs=str(root/bundle_rel)
+    ver=json.load(open(bundle_abs))["version"]
+    print(f'BUNDLE=\"{bundle_abs}\"')
+    print(f'EXPECT=\"{ver}\"')
+except Exception as e:
+    print(f'echo \"[pre-commit] Config/bundle error: {e}\" >&2; exit 1')
+PY
+)"
+  /usr/bin/python3 "$REPO_ROOT/run_smoketest.py" \
+    --bundle "$BUNDLE" \
+    --expect-version "$EXPECT" \
+    --check-modules "Q_Vault_v2.0.0_FULL/Vault/Modules/Compliance/LabourLaw_SA_UAE_v1.0.json,Q_Vault_v2.0.0_FULL/Vault/Modules/Compliance/Tax_Finance_v1.0.json,Q_Vault_v2.0.0_FULL/Vault/Modules/Compliance/Domain_DataProtection_SA_UAE_v1.0.json" \
+    --out "$REPORT" >/dev/null
+
+  if grep -q '"status": "FAIL"' "$REPORT"; then
+    echo "✖ Pre-commit blocked — smoke test FAIL. See $REPORT" >&2
+    exit 1
+  fi
+  echo "✓ Main smoketest PASS" >&2
+else
+  echo "[pre-commit] run_smoketest.py not found — skipping main check" >&2
+fi
+
+# --- Data Protection smoketest ---
+DP_REPORT="$ROOT/Vault/Changelog/DP_SmokeTest_Report.json"
+if [ -f "$REPO_ROOT/smoketest_dp.py" ]; then
+  echo "[pre-commit] running Data Protection smoketest..." >&2
+  /usr/bin/python3 "$REPO_ROOT/smoketest_dp.py" \
+    --file "Q_Vault_v2.0.0_FULL/Vault/Modules/Compliance/Domain_DataProtection_SA_UAE_v1.0.json" \
+    --out  "$DP_REPORT" >/dev/null
+  echo "✓ DP smoketest PASS" >&2
+else
+  echo "[pre-commit] smoketest_dp.py not found — skipping DP check" >&2
+fi
+
+exit 0

@@ -1,0 +1,421 @@
+{
+  "id": "Vault/Modules/Compliance/Domain_DataProtection_SA_UAE_v1.0.json",
+  "name": "Data Protection & Privacy \u2014 POPIA (South Africa) & PDPL (UAE)",
+  "version": "v1.0",
+  "owner": "LegalEagle",
+  "last_updated": "2025-08-23",
+  "jurisdictions": {
+    "ZA": {
+      "statute": "Protection of Personal Information Act, 2013 (POPIA)",
+      "regulator": "Information Regulator (South Africa)"
+    },
+    "UAE": {
+      "statute": "UAE Personal Data Protection Law (Federal Decree-Law No. 45 of 2021, as amended)",
+      "regulator": "UAE Data Office / Data Protection Committee"
+    }
+  },
+  "scope": {
+    "data_categories": [
+      "HR/employee data",
+      "Patient/clinical data",
+      "Customer/vendor data",
+      "Device telemetry & logs",
+      "Marketing & website analytics"
+    ],
+    "systems": [
+      "HRIS",
+      "EMR/EHR",
+      "ERP & finance",
+      "MDM/endpoint",
+      "Cloud storage & backups",
+      "Public website & consent CMP"
+    ]
+  },
+  "agents": {
+    "navigator": {
+      "role": "Compliance Architect & Planner",
+      "prompt": "You are Navigator. Extend and operationalize data protection compliance across POPIA (ZA) and PDPL (UAE). Map obligations \u2192 controls \u2192 checklists \u2192 evidence. Build a crosswalk that normalizes: lawful bases, data subject rights, roles (controller/processor), DPIA/ROPA, retention, security, breach, cross-border transfers, children/sensitive data, vendor/DPA, marketing consent & cookies. Output ONLY structured JSON updates addressing these module keys: crosswalk, controls, checklists, playbooks, tests. Keep control IDs stable (e.g., DP-CTRL-001). Prefer practical, auditable steps tied to specific systems (HRIS, EMR, ERP, M365/Google Workspace). Where laws diverge, show per-jurisdiction notes.",
+      "goals": [
+        "Complete POPIA\u2194PDPL obligations crosswalk with stable IDs",
+        "Generate auditable controls and owner mappings",
+        "Produce role-based checklists (HR, IT/SecOps, Clinical, Finance, Marketing)",
+        "Propose DPIA & ROPA templates, breach playbook, vendor/DPA pack",
+        "Seed smoketests that validate presence of key artifacts"
+      ]
+    },
+    "picasso": {
+      "role": "Primary-Source Research & Synthesis",
+      "prompt": "You are Picasso. Compile precise, citation-backed summaries from PRIMARY sources (statutes, regulators). Extract the minimum viable obligations and edge-cases (e.g., cross-border transfer approvals, children\u2019s data, joint controllers). Produce compact deltas where POPIA and PDPL differ. Render outputs for this module\u2019s sections: references, crosswalk.notes, playbooks.steps, templates.structure. Avoid speculation; flag ambiguities as TODOs with a tracker ID (e.g., TODO-DP-07)."
+    }
+  },
+  "crosswalk": {
+    "principles": [
+      {
+        "id": "DP-PRIN-001",
+        "topic": "Lawfulness, fairness, transparency",
+        "ZA": "Required",
+        "UAE": "Required",
+        "notes": ""
+      },
+      {
+        "id": "DP-PRIN-002",
+        "topic": "Purpose limitation",
+        "ZA": "Required",
+        "UAE": "Required",
+        "notes": ""
+      },
+      {
+        "id": "DP-PRIN-003",
+        "topic": "Data minimisation",
+        "ZA": "Required",
+        "UAE": "Required",
+        "notes": ""
+      },
+      {
+        "id": "DP-PRIN-004",
+        "topic": "Accuracy",
+        "ZA": "Required",
+        "UAE": "Required",
+        "notes": ""
+      },
+      {
+        "id": "DP-PRIN-005",
+        "topic": "Storage limitation/retention",
+        "ZA": "Required",
+        "UAE": "Required",
+        "notes": ""
+      },
+      {
+        "id": "DP-PRIN-006",
+        "topic": "Integrity/confidentiality (security)",
+        "ZA": "Required",
+        "UAE": "Required",
+        "notes": ""
+      },
+      {
+        "id": "DP-PRIN-007",
+        "topic": "Accountability",
+        "ZA": "Responsible Party accountable",
+        "UAE": "Controller accountable",
+        "notes": ""
+      }
+    ],
+    "lawful_bases": [
+      {
+        "id": "DP-LB-001",
+        "basis": "Consent",
+        "ZA": "Yes",
+        "UAE": "Yes",
+        "notes": "Document consent & withdrawal."
+      },
+      {
+        "id": "DP-LB-002",
+        "basis": "Contract performance",
+        "ZA": "Yes",
+        "UAE": "Yes",
+        "notes": ""
+      },
+      {
+        "id": "DP-LB-003",
+        "basis": "Legal obligation",
+        "ZA": "Yes",
+        "UAE": "Yes",
+        "notes": ""
+      },
+      {
+        "id": "DP-LB-004",
+        "basis": "Legitimate interests",
+        "ZA": "Similar concept (justification)",
+        "UAE": "Permitted with balancing",
+        "notes": "Record LIA if relied upon."
+      },
+      {
+        "id": "DP-LB-005",
+        "basis": "Vital interests",
+        "ZA": "Yes",
+        "UAE": "Yes",
+        "notes": "Clinical emergencies."
+      },
+      {
+        "id": "DP-LB-006",
+        "basis": "Public interest/authority",
+        "ZA": "Yes",
+        "UAE": "Yes",
+        "notes": ""
+      }
+    ],
+    "roles": [
+      {
+        "id": "DP-ROLE-001",
+        "role": "Controller/Responsible Party",
+        "ZA": "Responsible Party",
+        "UAE": "Controller",
+        "obligations": [
+          "Accountability",
+          "Transparency",
+          "Security"
+        ]
+      },
+      {
+        "id": "DP-ROLE-002",
+        "role": "Processor/Operator",
+        "ZA": "Operator",
+        "UAE": "Processor",
+        "obligations": [
+          "DPA required",
+          "Security measures",
+          "Sub-processor controls"
+        ]
+      }
+    ],
+    "transfers": [
+      {
+        "id": "DP-XFER-001",
+        "rule": "Adequacy/whitelists or safeguards (SCCs, BCRs)",
+        "ZA": "Section 72 equivalents",
+        "UAE": "PDPL transfer rules",
+        "notes": "Record mechanism per vendor/system."
+      }
+    ],
+    "special": [
+      {
+        "id": "DP-SP-001",
+        "topic": "Children\u2019s data",
+        "ZA": "Stricter consent / justifications",
+        "UAE": "Heightened protections",
+        "notes": ""
+      },
+      {
+        "id": "DP-SP-002",
+        "topic": "Health/sensitive data",
+        "ZA": "Special personal information",
+        "UAE": "Sensitive personal data",
+        "notes": "Extra safeguards & lawful basis."
+      }
+    ],
+    "security_breach": [
+      {
+        "id": "DP-BREACH-001",
+        "topic": "Security measures (technical & org)",
+        "ZA": "Required",
+        "UAE": "Required",
+        "notes": ""
+      },
+      {
+        "id": "DP-BREACH-002",
+        "topic": "Breach notification",
+        "ZA": "Notify Regulator & data subjects where risk",
+        "UAE": "Notify regulator/data subjects per thresholds",
+        "notes": "Track SLA and thresholds."
+      }
+    ]
+  },
+  "controls": [
+    {
+      "id": "DP-CTRL-001",
+      "name": "ROPA maintained",
+      "owner": "Compliance",
+      "evidence": [
+        "ROPA.xlsx or registry.json"
+      ],
+      "systems": [
+        "All"
+      ],
+      "frequency": "Quarterly"
+    },
+    {
+      "id": "DP-CTRL-002",
+      "name": "DPA with vendors",
+      "owner": "Legal",
+      "evidence": [
+        "Signed_DPA.pdf"
+      ],
+      "systems": [
+        "Vendors"
+      ],
+      "frequency": "Onboarding/change"
+    },
+    {
+      "id": "DP-CTRL-003",
+      "name": "Lawful basis register",
+      "owner": "Compliance",
+      "evidence": [
+        "Lawful_Basis_Register.csv"
+      ],
+      "systems": [
+        "All"
+      ],
+      "frequency": "Quarterly"
+    },
+    {
+      "id": "DP-CTRL-004",
+      "name": "DPIA for high-risk processing",
+      "owner": "Compliance",
+      "evidence": [
+        "DPIA_<system>.pdf"
+      ],
+      "systems": [
+        "EMR/EHR",
+        "Analytics"
+      ],
+      "frequency": "Pre-go-live"
+    },
+    {
+      "id": "DP-CTRL-005",
+      "name": "Retention schedule & purge jobs",
+      "owner": "IT",
+      "evidence": [
+        "Retention_Schedule.xlsx",
+        "Purge_Logs.csv"
+      ],
+      "systems": [
+        "Cloud storage",
+        "DBs"
+      ],
+      "frequency": "Monthly"
+    },
+    {
+      "id": "DP-CTRL-006",
+      "name": "Breach playbook exercised",
+      "owner": "SecOps",
+      "evidence": [
+        "Tabletop_Report.md"
+      ],
+      "systems": [
+        "All"
+      ],
+      "frequency": "Semiannual"
+    }
+  ],
+  "checklists": {
+    "HR": [
+      "Verify lawful basis for HR data (contract/legal obligation)",
+      "Employee privacy notice issued and acknowledged",
+      "Cross-border transfer mechanism for payroll/benefits vendors",
+      "Retention & deletion policy applied to leavers"
+    ],
+    "Clinical": [
+      "Patient consent/justification logged (special category)",
+      "Role-based access controls in EMR",
+      "Secure messaging & encryption for reports",
+      "Medical device telemetry de-identified where feasible"
+    ],
+    "IT_SecOps": [
+      "MFA & device encryption enforced",
+      "Backups encrypted and tested",
+      "DLP rules for health/ID numbers",
+      "Breach detection & 24/7 on-call"
+    ],
+    "Marketing": [
+      "Consent/CMP configured for cookies",
+      "Unsubscribe & preference center functional",
+      "Suppression lists maintained",
+      "No sensitive data sent to ad platforms"
+    ],
+    "Finance": [
+      "Vendor DPAs filed",
+      "Cross-border safeguards documented for finance systems",
+      "Access reviews performed",
+      "Invoice data minimised"
+    ]
+  },
+  "playbooks": {
+    "breach_response": {
+      "id": "DP-PB-001",
+      "title": "Personal Data Breach \u2014 First 72 Hours",
+      "steps": [
+        "T+0: Triage & contain; open incident ticket.",
+        "T+4h: Identify data categories/volume; assess risk.",
+        "T+24h: Convene exec/legal; draft regulator notification (jurisdiction-specific).",
+        "T+48h: Prepare data subject notice if required.",
+        "T+72h: Submit notifications; start lessons-learned & corrective actions."
+      ],
+      "artifacts": [
+        "Breach_Report_Template.md",
+        "Notification_Draft.docx"
+      ]
+    },
+    "dppa_vendor_onboarding": {
+      "id": "DP-PB-002",
+      "title": "Vendor Privacy/DPA Onboarding",
+      "steps": [
+        "Classify vendor (processor vs. controller).",
+        "Assess cross-border transfers & safeguards.",
+        "Execute DPA with SCCs/BCRs as applicable.",
+        "Record vendor in ROPA; set review date."
+      ],
+      "artifacts": [
+        "DPA_Template.docx",
+        "Transfer_Assessment.xlsx"
+      ]
+    }
+  },
+  "templates": {
+    "DPIA": {
+      "sections": [
+        "Overview",
+        "Purpose & lawful basis",
+        "Data flows",
+        "Risks",
+        "Mitigations",
+        "Residual risk",
+        "Approvals"
+      ]
+    },
+    "ROPA": {
+      "fields": [
+        "Process_ID",
+        "Controller/Processor",
+        "Purpose",
+        "Data categories",
+        "Recipients",
+        "Transfers",
+        "Retention",
+        "Security measures"
+      ]
+    },
+    "PrivacyNotice": {
+      "sections": [
+        "Identity of controller",
+        "Purposes",
+        "Lawful basis",
+        "Recipients",
+        "Transfers",
+        "Retention",
+        "Rights",
+        "Contact/Complaints"
+      ]
+    }
+  },
+  "references": [
+    {
+      "label": "POPIA (primary text)",
+      "url": "https://www.justice.gov.za/inforeg/"
+    },
+    {
+      "label": "UAE PDPL (primary text/guide)",
+      "url": "https://u.ae/en/about-the-uae/digital-uae/personal-data-protection-law"
+    }
+  ],
+  "smoketests": [
+    {
+      "id": "exists",
+      "expect": "file_exists",
+      "path": "Vault/Modules/Compliance/Domain_DataProtection_SA_UAE_v1.0.json"
+    },
+    {
+      "id": "schema",
+      "expect": "has_keys",
+      "keys": [
+        "id",
+        "name",
+        "version",
+        "agents",
+        "crosswalk",
+        "controls",
+        "checklists"
+      ]
+    }
+  ],
+  "changelog_entry": "Added Data Protection & Privacy module (POPIA/PDPL) with crosswalk, controls, checklists, playbooks and templates."
+}
