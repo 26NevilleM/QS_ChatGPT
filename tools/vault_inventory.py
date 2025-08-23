@@ -1,45 +1,84 @@
-import json, pathlib, sys
-root = pathlib.Path("Q_Vault_v2.0.0_FULL")
-conf = root/"Vault/Modules/Config/Config_Master.json"
+from pathlib import Path
+import json
 
-def load_json(p): 
-    with open(p, "r", encoding="utf-8") as f: return json.load(f)
+root = Path("Q_Vault_v2.0.0_FULL")
+changelog = root / "Vault" / "Changelog"
+changelog.mkdir(parents=True, exist_ok=True)
 
-cfg = load_json(conf)
-bundle_rel = cfg["orchestrator"]["default_bundle"]      # e.g. Vault/Master/Q_Vault_v2.0.7_bundle.json
-bundle = root/bundle_rel
+# Pick the active bundle (update here if needed)
+bundle = root / "Vault" / "Master" / "Q_Vault_v2.0.7_bundle.json"
+
+def load_json(p: Path):
+    if not p.exists():
+        return None
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+# --- Collect referenced module file paths from the active bundle ------------
+referenced = set()
 b = load_json(bundle)
 
-# Heuristic: collect referenced module paths from bundle + Config
-referenced = set()
-def add(p): 
-    p = str(pathlib.Path("Q_Vault_v2.0.0_FULL")/p) if not str(p).startswith("Q_Vault_v2.0.0_FULL") else str(p)
-    referenced.add(p)
+def add(path_str: str):
+    if not path_str:
+        return
+    p = (root / "Vault" / "Modules" / path_str)
+    # support absolute-like paths too
+    q = root / path_str
+    if p.exists():
+        referenced.add(str(p))
+    elif q.exists():
+        referenced.add(str(q))
 
-# bundle might list modules under common keys; collect any *.json under Vault/Modules
-def walk_collect(d):
-    if isinstance(d, dict):
-        for k, v in d.items(): walk_collect(v)
-    elif isinstance(d, list):
-        for v in d: walk_collect(v)
-    elif isinstance(d, str) and d.endswith(".json"):
-        if "/Vault/Modules/" in d or d.startswith("Vault/Modules/") or d.startswith("Q_Vault_v2.0.0_FULL/Vault/Modules/"):
-            add(d)
+def walk_collect(node):
+    if isinstance(node, dict):
+        for k, v in node.items():
+            # naive heuristic: strings that end with .json might be module refs
+            if isinstance(v, str) and v.lower().endswith(".json"):
+                add(v)
+            else:
+                walk_collect(v)
+    elif isinstance(node, list):
+        for v in node:
+            walk_collect(v)
 
-walk_collect(b)
+if isinstance(b, dict):
+    walk_collect(b)
 
-# Everything that exists under Modules
-all_modules = { str(p) for p in (root/"Vault/Modules").rglob("*.json") }
+# --- Everything that exists under Modules -----------------------------------
+modules_dir = root / "Vault" / "Modules"
+all_modules = {str(p) for p in modules_dir.rglob("*.json")} if modules_dir.exists() else set()
 
-# Report
+# --- Snapshots (optional folder) --------------------------------------------
+snapshots_dir = root / "Vault" / "Snapshots"
+all_snapshots = {str(p) for p in snapshots_dir.glob("*.json")} if snapshots_dir.exists() else set()
+# Nothing currently references snapshots programmatically here, so all are orphans by default
+# You can add logic later if you model snapshot references somewhere.
+orphan_snapshots = sorted(all_snapshots)
+
+# --- Bundles in Master ------------------------------------------------------
+master_dir = root / "Vault" / "Master"
+all_bundles = {str(p) for p in master_dir.glob("*bundle.json")} if master_dir.exists() else set()
+referenced_bundles = {str(bundle)} if bundle.exists() else set()
+orphan_bundles = sorted(all_bundles - referenced_bundles)
+
+# --- Modules orphans --------------------------------------------------------
 orphans = sorted(all_modules - referenced)
+
 report = {
-  "bundle": str(bundle),
-  "referenced_count": len(referenced),
-  "modules_total": len(all_modules),
-  "orphans_count": len(orphans),
-  "orphans": orphans
+    "bundle": str(bundle),
+    "referenced_module_count": len(referenced),
+    "modules_total": len(all_modules),
+    "orphans_module_count": len(orphans),
+    "orphans_modules": orphans,
+    "bundles_total": len(all_bundles),
+    "active_bundles": sorted(list(referenced_bundles)),
+    "orphan_bundles": orphan_bundles,
+    "snapshots_total": len(all_snapshots),
+    "orphan_snapshots": orphan_snapshots,
 }
-out = root/"Vault/Changelog/vault_cleanup_inventory.json"
+
+out = changelog / "vault_cleanup_inventory.json"
 out.write_text(json.dumps(report, indent=2), encoding="utf-8")
 print(f"Wrote {out}")
