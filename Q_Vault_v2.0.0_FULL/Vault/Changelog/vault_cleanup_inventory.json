@@ -9,13 +9,11 @@
     "Q_Vault_v2.0.0_FULL/Vault/Modules/Compliance/Tax_Finance_v1.0.json",
     "Q_Vault_v2.0.0_FULL/Vault/Modules/Config/Config_Master.json"
   ],
-  "bundles_total": 2,
+  "bundles_total": 1,
   "active_bundles": [
     "Q_Vault_v2.0.0_FULL/Vault/Master/Q_Vault_v2.0.7_bundle.json"
   ],
-  "orphan_bundles": [
-    "Q_Vault_v2.0.0_FULL/Vault/Master/Q_Vault_v2.0.1_bundle.json"
-  ],
+  "orphan_bundles": [],
   "snapshots_total": 0,
   "orphan_snapshots": []
 }
