@@ -49,3 +49,25 @@ Q_Vault_v2.0.0_FULL/Vault/Changelog/*SmokeTest_Report.json
 *.tgz
 *.bak
 vaultwatch.err.log
+# macOS / Finder
+.DS_Store
+._*
+
+# Logs & temp
+*.log
+*.err.log
+*.tmp
+/tmp/
+.vscode/
+.idea/
+
+# Archives & manifests
+*.zip
+*.manifest.txt
+
+# Google Drive detritus
+*.tmp.drivedownload
+Thumbs.db
+
+# Local scripts scratch
+Tools/_scratch/
