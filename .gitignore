@@ -48,3 +48,4 @@ Q_Vault_v2.0.0_FULL/Vault/Changelog/*SmokeTest_Report.json
 *.tar.gz
 *.tgz
 *.bak
+vaultwatch.err.log
