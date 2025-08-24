@@ -1,5 +1,11 @@
 {
   "orchestrator": {
     "default_bundle": "Vault/Master/Q_Vault_v2.0.7_bundle.json"
-  }
+  },
+  "personas": [
+    "Q_Vault_v2.0.0_FULL/Vault/Modules/Persona/Persona_LegalEagle_v1.0.0.json",
+    "Q_Vault_v2.0.0_FULL/Vault/Modules/Persona/Persona_Navigator_v1.1.0.json",
+    "Q_Vault_v2.0.0_FULL/Vault/Modules/Persona/Persona_Operator_v1.0.0.json",
+    "Q_Vault_v2.0.0_FULL/Vault/Modules/Persona/Persona_Picasso_v1.1.0.json"
+  ]
 }
