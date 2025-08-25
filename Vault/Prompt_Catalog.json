@@ -1,6 +1,6 @@
 {
   "catalog_version": 1,
-  "generated_at": "2025-08-25T12:34:44Z",
+  "generated_at": "2025-08-25T12:39:18Z",
   "root": "Vault/Prompt_Library",
   "packs": [
     {
@@ -25,15 +25,38 @@
       "updated": "2025-08-25",
       "checksum_sha256": "53341ab3b31b21dbb66afef2f9ed0967ed1655c0dea6a50068937bc12fc7569e",
       "checksum_verified": true
+    },
+    {
+      "slug": "demo_002_world",
+      "title": "Demo Prompt — World",
+      "id": "demo_002_world",
+      "path": "Vault/Prompt_Library/active/demo_002_world/prompt.md",
+      "bucket": "active",
+      "owner": "Neville",
+      "persona": [
+        "Operator"
+      ],
+      "use_case": [
+        "demo"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "demo"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "2401e1061bb45aa07aa9f2e5ec84dda3a692de191c805429847db3b5cbeada1f",
+      "checksum_verified": true
     }
   ],
   "summary": {
-    "total": 1,
+    "total": 2,
     "by_bucket": {
-      "active": 1,
+      "active": 2,
       "sandbox": 0
     },
-    "checksum_ok": 1,
+    "checksum_ok": 2,
     "checksum_bad": 0
   },
   "notes": {
