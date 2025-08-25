@@ -1,6 +1,6 @@
 {
   "catalog_version": 1,
-  "generated_at": "2025-08-25T13:26:27Z",
+  "generated_at": "2025-08-25T13:26:40Z",
   "root": "Vault/Prompt_Library",
   "packs": [
     {
@@ -97,6 +97,30 @@
       "checksum_verified": true
     },
     {
+      "slug": "risk_checker",
+      "title": "Risk & Red Flags Checker",
+      "id": "risk_checker",
+      "path": "Vault/Prompt_Library/active/risk_checker/prompt.md",
+      "bucket": "active",
+      "owner": "Neville",
+      "persona": [
+        "Clinician"
+      ],
+      "use_case": [
+        "safety"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "safety",
+        "checklist"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "3e025ed286a22ac9a04779665f7d20480dd5bf149cb679ebafa37292067c4045",
+      "checksum_verified": true
+    },
+    {
       "slug": "triage_intake",
       "title": "Clinical Intake Triage",
       "id": "triage_intake",
@@ -119,6 +143,31 @@
       "created": "2025-08-25",
       "updated": "2025-08-25",
       "checksum_sha256": "e8844babe877346a72686f302742e1c9b020e3e260745d10e9da7ce387af0ae1",
+      "checksum_verified": true
+    },
+    {
+      "slug": "clinical_coder",
+      "title": "Clinical Coder",
+      "id": "clinical_coder",
+      "path": "Vault/Prompt_Library/sandbox/clinical_coder/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": [
+        "Operator"
+      ],
+      "use_case": [
+        "coding"
+      ],
+      "version": "0.1.0",
+      "status": "prototype",
+      "tags": [
+        "clinical",
+        "coding",
+        "icd"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "6e054d596f5be041524d9d10a150478c9af690ce5480681b6a8613f54371da34",
       "checksum_verified": true
     },
     {
@@ -172,16 +221,16 @@
     }
   ],
   "summary": {
-    "total": 7,
+    "total": 9,
     "by_bucket": {
-      "active": 5,
-      "sandbox": 2
+      "active": 6,
+      "sandbox": 3
     },
-    "checksum_ok": 7,
+    "checksum_ok": 9,
     "checksum_bad": 0
   },
   "notes": {
     "issues": []
   },
-  "fingerprint": "b8032938d7fae2f01a77904ebe4e53b25d6ddb9eceea3561cbd6047f914b4159"
+  "fingerprint": "8c0410cf2c1e3e3e189e94cda0bc5111e0a9993f36729d49b0f38af93ed585bc"
 }
