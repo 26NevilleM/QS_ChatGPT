@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# 1) Make sure repo is cleanly fixed (checksums, catalog, validation)
+python3 Vault/tools/update_checksums.py
+python3 Vault/tools/build_catalog.py
+python3 Vault/tools/validate_all.py
+
+# 2) Commit whatever changed (allow empty so the flow isn't broken)
+git add -A
+msg="${1:-chore: auto-fix prompts}"
+git commit -m "$msg" --allow-empty
+
+# 3) Push
+git push
