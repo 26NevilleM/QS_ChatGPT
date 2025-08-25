@@ -1,13 +1,14 @@
 {
   "catalog_version": 1,
-  "generated_at": "2025-08-25T13:14:43.428777Z",
-  "root": "/Users/neville/Library/CloudStorage/GoogleDrive-design@qsurgical.co.za/My Drive/QS_ChatGPT/Vault/Prompt_Library",
+  "generated_at": "2025-08-25T13:16:40Z",
+  "root": "Vault/Prompt_Library",
   "packs": [
     {
       "slug": "demo_001_hello",
       "title": "Demo Prompt — Hello",
-      "path": "Vault/Prompt_Library/active/demo_001_hello/prompt.md",
       "id": "demo_001_hello",
+      "path": "Vault/Prompt_Library/active/demo_001_hello/prompt.md",
+      "bucket": "active",
       "owner": "Neville",
       "persona": [
         "Operator"
@@ -17,20 +18,20 @@
       ],
       "version": "1.0.0",
       "status": "active",
-      "created": "2025-08-25",
-      "updated": "2025-08-25",
       "tags": [
         "demo"
       ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
       "checksum_sha256": "53341ab3b31b21dbb66afef2f9ed0967ed1655c0dea6a50068937bc12fc7569e",
-      "checksum_verified": true,
-      "bucket": "active"
+      "checksum_verified": true
     },
     {
       "slug": "demo_002_world",
       "title": "Demo Prompt — World",
-      "path": "Vault/Prompt_Library/active/demo_002_world/prompt.md",
       "id": "demo_002_world",
+      "path": "Vault/Prompt_Library/active/demo_002_world/prompt.md",
+      "bucket": "active",
       "owner": "Neville",
       "persona": [
         "Operator"
@@ -40,14 +41,13 @@
       ],
       "version": "1.0.0",
       "status": "active",
-      "created": "2025-08-25",
-      "updated": "2025-08-25",
       "tags": [
         "demo"
       ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
       "checksum_sha256": "666a48146aacc36c2d4a1993a87f266e1ce65c42891d6ccffe3b5f1b95d07d2f",
-      "checksum_verified": true,
-      "bucket": "active"
+      "checksum_verified": true
     }
   ],
   "summary": {
@@ -61,5 +61,6 @@
   },
   "notes": {
     "issues": []
-  }
+  },
+  "fingerprint": "f39f83aabceff0f1507ef45ea6ab2726243bd7181e23d1ff88a76c01c80fcea0"
 }
