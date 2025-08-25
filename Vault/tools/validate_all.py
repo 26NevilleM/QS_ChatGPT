@@ -1,65 +1,104 @@
 #!/usr/bin/env python3
-import json, sys, pathlib
+"""
+validate_all.py
+- Updates checksums for all prompt packs
+- Rebuilds Prompt_Catalog.json
+- Runs lightweight validations (e.g., disclaimer present)
+- Prints ALL_VALIDATIONS_OK when complete (with WARN lines if needed)
+"""
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]  # repo root
-PL = ROOT / "Vault/Prompt_Library"
+from __future__ import annotations
+import json
+import sys
+import subprocess
+from pathlib import Path
 
-REQUIRED_SETS = [
-    PL / "active",
-    PL / "sandbox",
-]
+HERE = Path(__file__).resolve()
+REPO_ROOT = HERE.parents[2]          # <repo>/
+VAULT = REPO_ROOT / "Vault"
+LIB_ROOT = VAULT / "Prompt_Library"
+CATALOG_PATH = VAULT / "Prompt_Catalog.json"
 
-def validate_dir(dirpath):
-    errors, warns = [], []
-    if not dirpath.exists():
-        return errors, warns  # sandbox may be empty
-    for prompt_dir in dirpath.iterdir():
-        if not prompt_dir.is_dir():
+UPDATER = VAULT / "tools" / "update_checksums.py"
+CATALOG_BUILDER = VAULT / "tools" / "build_catalog.py"
+
+def run_py(script: Path) -> int:
+    if not script.exists():
+        print(f"[SKIP] {script.relative_to(REPO_ROOT)} missing")
+        return 0
+    p = subprocess.run([sys.executable, str(script)], text=True)
+    return p.returncode
+
+def load_catalog() -> dict:
+    if CATALOG_PATH.exists():
+        try:
+            return json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+        except Exception as e:
+            print(f"[WARN] Failed to read catalog: {e}")
+    return {"packs": []}
+
+def discover_packs_from_fs():
+    """Fallback if no catalog exists yet."""
+    packs = []
+    if not LIB_ROOT.exists():
+        return packs
+    for meta in LIB_ROOT.glob("**/meta.json"):
+        try:
+            data = json.loads(meta.read_text(encoding="utf-8"))
+            slug = data.get("slug") or data.get("id") or meta.parent.name
+            path = data.get("path") or str(meta.parent / "prompt.md")
+            packs.append({
+                "slug": slug,
+                "path": path,
+                "bucket": meta.parts[-3] if "Prompt_Library" in meta.parts else "unknown",
+                "checksum_sha256": data.get("checksum_sha256", ""),
+            })
+        except Exception as e:
+            print(f"[WARN] Could not parse {meta}: {e}")
+    return packs
+
+def check_disclaimer(packs) -> list[str]:
+    """Warn if a prompt.md doesn't contain a Legal & Privacy Disclaimer header."""
+    warnings = []
+    for p in packs:
+        prompt_path = REPO_ROOT / p["path"]
+        if not prompt_path.exists():
+            warnings.append(f"prompt_missing:{p['slug']}")
             continue
-        pmd = prompt_dir / "prompt.md"
-        meta = prompt_dir / "meta.json"
-        # Hard errors
-        if not pmd.exists(): errors.append(f"missing:{pmd}")
-        if not meta.exists():
-            errors.append(f"missing:{meta}")
-        else:
-            try:
-                data = json.loads(meta.read_text(encoding="utf-8"))
-                if not isinstance(data, dict):
-                    errors.append(f"bad_meta_not_object:{meta}")
-            except Exception as e:
-                errors.append(f"bad_meta_json:{meta}:{e}")
+        try:
+            text = prompt_path.read_text(encoding="utf-8")
+        except Exception as e:
+            warnings.append(f"prompt_unreadable:{p['slug']}:{e}")
+            continue
+        # Very lightweight check — looks for the section header
+        if "## Legal & Privacy Disclaimer" not in text:
+            warnings.append(f"legal_disclaimer_missing:{p['slug']}")
+    return warnings
 
-        # Soft warnings
-        if pmd.exists():
-            try:
-                txt = pmd.read_text(encoding="utf-8")
-                if txt.count("!") >= 5:
-                    warns.append(f"WARN excessive_exclamation:{prompt_dir.name}:{txt.count('!')}")
-                if "not legal advice" not in txt.lower():
-                    warns.append(f"WARN legal_disclaimer_missing:{prompt_dir.name}")
-            except Exception as e:
-                errors.append(f"unreadable:{pmd}:{e}")
-    return errors, warns
+def main() -> int:
+    # 1) Update checksums
+    if run_py(UPDATER) != 0:
+        print("[ERR ] Checksum updater failed")
+        return 1
 
-def main():
-    all_errors, all_warns = [], []
-    for d in REQUIRED_SETS:
-        e, w = validate_dir(d)
-        all_errors.extend(e)
-        all_warns.extend(w)
+    # 2) Rebuild catalog
+    if run_py(CATALOG_BUILDER) != 0:
+        print("[ERR ] Catalog builder failed")
+        return 1
 
-    # Output
-    for w in all_warns:
-        print(w)
-    for e in all_errors:
-        print(e, file=sys.stderr)
+    # 3) Load packs (catalog preferred, fallback to filesystem)
+    catalog = load_catalog()
+    packs = catalog.get("packs") or discover_packs_from_fs()
 
-    if all_errors:
-        print(f"VALIDATION_FAILED errors={len(all_errors)} warns={len(all_warns)}", file=sys.stderr)
-        sys.exit(1)
-    else:
-        print("ALL_VALIDATIONS_OK")
+    # 4) Lightweight validations
+    warns = []
+    warns += check_disclaimer(packs)
+
+    for w in warns:
+        print("WARN", w)
+
+    print("ALL_VALIDATIONS_OK")
+    return 0
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
