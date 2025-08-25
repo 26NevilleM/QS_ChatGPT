@@ -1,0 +1,42 @@
+{
+  "catalog_version": 1,
+  "generated_at": "2025-08-25T12:34:44Z",
+  "root": "Vault/Prompt_Library",
+  "packs": [
+    {
+      "slug": "demo_001_hello",
+      "title": "Demo Prompt — Hello",
+      "id": "demo_001_hello",
+      "path": "Vault/Prompt_Library/active/demo_001_hello/prompt.md",
+      "bucket": "active",
+      "owner": "Neville",
+      "persona": [
+        "Operator"
+      ],
+      "use_case": [
+        "demo"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "demo"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "53341ab3b31b21dbb66afef2f9ed0967ed1655c0dea6a50068937bc12fc7569e",
+      "checksum_verified": true
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "by_bucket": {
+      "active": 1,
+      "sandbox": 0
+    },
+    "checksum_ok": 1,
+    "checksum_bad": 0
+  },
+  "notes": {
+    "issues": []
+  }
+}
