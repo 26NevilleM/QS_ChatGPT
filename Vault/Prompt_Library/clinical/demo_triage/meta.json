@@ -1,0 +1,15 @@
+{
+  "slug": "demo_triage",
+  "title": "Intake Triage",
+  "owner": "Neville",
+  "persona": "Clinician",
+  "use_case": "Fast intake triage notes",
+  "version": "1.0.0",
+  "status": "stable",
+  "tags": [
+    "triage",
+    "clinical"
+  ],
+  "created_at": "2025-08-25T17:27:03+00:00",
+  "checksum_sha256": "8473982cbf6512460806fde385909df28bf47a91894d270fda26ec6d0e899bfb"
+}

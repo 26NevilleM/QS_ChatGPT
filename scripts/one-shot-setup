@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Resolve repo root relative to this script (…/scripts -> repo root)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+cd "$REPO_ROOT"
+
+PUSH=0
+FORCE=0
+for arg in "$@"; do
+  case "$arg" in
+    --push) PUSH=1 ;;
+    --force) FORCE=1 ;; # reserved, not used yet
+  esac
+done
+
+echo "[PWD] $PWD"
+
+# Sanity check required tools exist
+for req in \
+  Vault/tools/one_shot_prompt_backfill.py \
+  Vault/tools/update_checksums.py \
+  Vault/tools/build_catalog.py \
+  Vault/tools/validate_all.py
+do
+  [[ -f "$req" ]] || { echo "[ERROR] Missing $req — run from correct repo."; exit 1; }
+done
+
+echo "[STEP] fix prompts (backfill missing/empty sections)"
+python3 Vault/tools/one_shot_prompt_backfill.py --fill || true
+
+echo "[STEP] update checksums"
+python3 Vault/tools/update_checksums.py
+
+echo "[STEP] build catalog"
+python3 Vault/tools/build_catalog.py
+
+echo "[STEP] validate"
+python3 Vault/tools/validate_all.py
+
+echo "[STEP] install pre-commit hook"
+mkdir -p .git/hooks
+cat > .git/hooks/pre-commit <<'HOOK'
+#!/usr/bin/env bash
+set -euo pipefail
+python3 Vault/tools/one_shot_prompt_backfill.py --fill || true
+python3 Vault/tools/update_checksums.py
+python3 Vault/tools/build_catalog.py
+python3 Vault/tools/validate_all.py
+HOOK
+chmod +x .git/hooks/pre-commit
+echo "[hooks] pre-commit installed"
+
+if [[ $PUSH -eq 1 ]]; then
+  git add -A
+  git commit -m "chore: one-shot setup run" --allow-empty
+  git push
+fi
+
+echo "[DONE] one-shot setup complete"

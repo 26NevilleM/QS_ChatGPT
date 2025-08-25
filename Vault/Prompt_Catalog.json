@@ -1,6 +1,6 @@
 {
   "catalog_version": 1,
-  "generated_at": "2025-08-25T16:43:23Z",
+  "generated_at": "2025-08-25T17:33:33Z",
   "root": "Vault/Prompt_Library",
   "packs": [
     {
@@ -23,7 +23,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "cefe1d0074f1931c2f360aa1aeea7ef647be1ccf626fe22058d901bdd0bf001d",
+      "checksum_sha256": "0d624a7bde66d2e4ef5db21d65b6bd573bc5372ac10ce3e9395136c7f22784db",
       "checksum_verified": true
     },
     {
@@ -46,7 +46,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "781135749eedf4abb8a9a26f6d9ae78e98ff590aed62594d9b5e69c9ef9cf4a8",
+      "checksum_sha256": "4fbe04e98268410cf6aebf48c58d5a318d3f34c3b3f9084a36cda16dbd3e9be8",
       "checksum_verified": true
     },
     {
@@ -69,7 +69,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "c3028211cde4a54115ddbb1fd027f25c2d4e7b1e3132212fe1d5408ef7159843",
+      "checksum_sha256": "dd495ba82d783322a95e9bb6baf1d9f9a7a29a591a0f069317458cde2a264164",
       "checksum_verified": true
     },
     {
@@ -93,7 +93,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "8ec0fcf28ecbc166f2940cd1e62c29210e85b37bcb206e3178c39c56a4a7cf69",
+      "checksum_sha256": "dde9513982935c589af8209491eb7b99b5b7f7e59162d19151c88cdbdd943d55",
       "checksum_verified": true
     },
     {
@@ -117,7 +117,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "2e59eb91f4201ed84485cee04d43f13a501e4beab0b9fe7d49de1356e995e0ae",
+      "checksum_sha256": "170cb22439716cadce8da5d4cf63e20d91369bb82a070d367ba9a05674ea77af",
       "checksum_verified": true
     },
     {
@@ -142,7 +142,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "8df4dee8b23e4c5c951f33e60884ad58350ef1428c5e8f1ff3eca192bc7ffbb5",
+      "checksum_sha256": "fe35075ea37f6ce74a9a81bfc253ab747a61cfd6bba8afe1ae1d609141e8d5e5",
       "checksum_verified": true
     },
     {
@@ -159,7 +159,7 @@
       "tags": [],
       "created": null,
       "updated": null,
-      "checksum_sha256": "2029cfb59292f4c8e9cefbfa0aa008d79df2ab5282b3236d75d489143e780783",
+      "checksum_sha256": "5cbf37268f94b4f23a6eed295cc5c6e0627d6d8adc8d3fcc0e7443559d688f63",
       "checksum_verified": true
     },
     {
@@ -184,7 +184,27 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "47110145891bf343f22c5cf1a9031b338c939ad33075080dd3018d2fb9550ecb",
+      "checksum_sha256": "c4b4d1e9754d170e6e2e5a2a7b78c41b2093c09ee0a2e24c715a68d16e96258c",
+      "checksum_verified": true
+    },
+    {
+      "slug": "demo_policy_check",
+      "title": "Policy Check",
+      "id": "demo_policy_check",
+      "path": "Vault/Prompt_Library/sandbox/demo_policy_check/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": "Sandbox",
+      "use_case": "Check policy sections",
+      "version": "0.1.0",
+      "status": "draft",
+      "tags": [
+        "qa",
+        "policy"
+      ],
+      "created": null,
+      "updated": null,
+      "checksum_sha256": "91208383f263484e94d122b8f3b81465f668cfb080641d3edd15a318545738c4",
       "checksum_verified": true
     },
     {
@@ -208,7 +228,27 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "117a895fa49c99d5ecca064d91d7bc65a6d4b62bd3df97a96de5a230695a488c",
+      "checksum_sha256": "92ec0cb00156902995bb1880b71bb5d8d1c573ddbceaa9fcdcd639a48b893d26",
+      "checksum_verified": true
+    },
+    {
+      "slug": "followup_generator",
+      "title": "Follow-up Message Generator",
+      "id": "followup_generator",
+      "path": "Vault/Prompt_Library/sandbox/followup_generator/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": "Operator",
+      "use_case": "comms",
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "comms",
+        "followup"
+      ],
+      "created": null,
+      "updated": null,
+      "checksum_sha256": "570fe3e4db4ac6c8dc6fe8a2df6cb9a93594b5c5310d673aa94ef56e242f4e28",
       "checksum_verified": true
     },
     {
@@ -233,21 +273,42 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "e3d6daab2ea2e995f4145a28905e33c69f3d570029de7c44e022a38f33513732",
+      "checksum_sha256": "841994f0d4224e0afcca85c09a4510b238d179d2eb8c3f93edcbcf6b1e93b3f9",
+      "checksum_verified": true
+    },
+    {
+      "slug": "triage_intake",
+      "title": "Clinical Intake Triage",
+      "id": "triage_intake",
+      "path": "Vault/Prompt_Library/sandbox/triage_intake/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": "Clinician",
+      "use_case": "intake",
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "clinical",
+        "intake",
+        "v1"
+      ],
+      "created": null,
+      "updated": null,
+      "checksum_sha256": "0bfa78421c54a91e338156511ff071883bb2ba376058cb7435d2dadf6785ae7e",
       "checksum_verified": true
     }
   ],
   "summary": {
-    "total": 10,
+    "total": 13,
     "by_bucket": {
       "active": 6,
-      "sandbox": 4
+      "sandbox": 7
     },
-    "checksum_ok": 10,
+    "checksum_ok": 13,
     "checksum_bad": 0
   },
   "notes": {
     "issues": []
   },
-  "fingerprint": "b80e10bf2b0d26525ba2e60d6d5a2366759dac991af610fb8247d745d8d9feae"
+  "fingerprint": "f496e25ebf53a1bf842cd943b15e83b82b7294962b549f83f843510ed084de8e"
 }

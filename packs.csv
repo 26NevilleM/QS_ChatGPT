@@ -1,4 +1,3 @@
-bucket,slug,title,owner,persona,use_case,version,status,tags
-active,triage_intake,"Clinical Intake Triage",Neville,Clinician,intake,1.0.0,active,"clinical,intake,v1"
-sandbox,doc_summary_v1,"Document Summarizer",Neville,Operator,summary,0.1.0,prototype,"docs,summary"
-active,followup_generator,"Follow-up Message Generator",Neville,Operator,comms,1.0.0,active,"comms,followup"
+slug,title,owner,persona,use_case,version,status,tags,category
+demo_policy_check,Policy Check,Neville,Sandbox,"Check policy sections",0.1.0,draft,"qa,policy",sandbox
+demo_triage,Intake Triage,Neville,Clinician,"Fast intake triage notes",1.0.0,stable,"triage,clinical",clinical
