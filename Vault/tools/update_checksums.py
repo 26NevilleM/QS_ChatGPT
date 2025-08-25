@@ -1,36 +1,105 @@
 #!/usr/bin/env python3
-import json, hashlib, pathlib, shutil
+"""
+Update checksum_sha256 in every meta.json that sits next to a prompt.md,
+no matter where it lives in the repo.
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
-PL = ROOT / "Vault" / "Prompt_Library"
-SETTINGS = [PL / "active", PL / "sandbox"]
+Usage:
+  python3 Vault/tools/update_checksums.py
+"""
 
-def sha256_bytes(p: pathlib.Path) -> str:
-    return hashlib.sha256(p.read_bytes()).hexdigest()
+from __future__ import annotations
 
-def process_dir(d: pathlib.Path):
-    if not d.is_dir(): return
-    pmd = d / "prompt.md"
-    meta = d / "meta.json"
-    if not (pmd.exists() and meta.exists()): return
-    chk = sha256_bytes(pmd)
+import hashlib
+import json
+import shutil
+from pathlib import Path
+from typing import Iterable
 
-    data = json.loads(meta.read_text(encoding="utf-8"))
-    old = data.get("checksum_sha256")
-    if old == chk:
-        print(f"[OK]  {d.name} checksum already up to date")
+# Globs we’ll scan for meta.json files. Add more if you use other layouts.
+META_GLOBS: list[str] = [
+    "Vault/**/meta.json",
+    "Packs/**/meta.json",
+    "**/Prompt_Library/**/meta.json",
+    # fallback for any other folders — this is wide but filtered later
+    "**/meta.json",
+]
+
+REPO_ROOT = Path.cwd()
+
+
+def sha256_of(file: Path) -> str:
+    h = hashlib.sha256()
+    with file.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def discover_meta_files(root: Path) -> Iterable[Path]:
+    seen: set[Path] = set()
+    for pattern in META_GLOBS:
+        for p in root.glob(pattern):
+            # Only keep files actually named meta.json
+            if p.name != "meta.json":
+                continue
+            # De-dup in case multiple globs hit the same file
+            if p.resolve() in seen:
+                continue
+            seen.add(p.resolve())
+            yield p
+
+
+def process_dir(meta_path: Path) -> None:
+    """Given path to meta.json, update checksum if sibling prompt.md exists."""
+    d = meta_path.parent
+    prompt = d / "prompt.md"
+    if not prompt.is_file():
+        print(f"[SKIP] {d} — no prompt.md")
         return
 
-    shutil.copy2(meta, meta.with_suffix(".json.bak"))
-    data["checksum_sha256"] = chk
-    meta.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"[FIX] {d.name} -> checksum_sha256 updated")
+    # Load meta.json (tolerate UTF-8)
+    try:
+        data = json.loads(meta_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"[ERR ] {meta_path}: cannot read/parse JSON: {e}")
+        return
 
-def main():
-    for bucket in SETTINGS:
-        if not bucket.exists(): continue
-        for child in sorted(bucket.iterdir()):
-            process_dir(child)
+    # Compute checksum for prompt.md
+    chk = sha256_of(prompt)
+    old = data.get("checksum_sha256")
+
+    if old == chk:
+        print(f"[OK  ] {d.name} — checksum up to date")
+        return
+
+    # Backup and write
+    try:
+        shutil.copy2(meta_path, meta_path.with_suffix(".json.bak"))
+    except Exception as e:
+        print(f"[WARN] Could not create backup for {meta_path}: {e}")
+
+    data["checksum_sha256"] = chk
+    try:
+        meta_path.write_text(
+            json.dumps(data, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+        action = "added" if old in (None, "") else "updated"
+        print(f"[FIX ] {d.name} — checksum {action}")
+    except Exception as e:
+        print(f"[ERR ] {meta_path}: failed to write: {e}")
+
+
+def main() -> None:
+    any_found = False
+    for meta in discover_meta_files(REPO_ROOT):
+        any_found = True
+        # Only process when there is a sibling prompt.md to hash
+        if (meta.parent / "prompt.md").exists():
+            process_dir(meta)
+    if not any_found:
+        print("[INFO] No meta.json files found. Nothing to do.")
+
 
 if __name__ == "__main__":
     main()

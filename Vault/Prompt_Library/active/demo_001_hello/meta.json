@@ -1,0 +1,21 @@
+{
+  "slug": "demo_001_hello",
+  "title": "Demo Prompt — Hello",
+  "path": "Vault/Prompt_Library/active/demo_001_hello/prompt.md",
+  "id": "demo_001_hello",
+  "owner": "Neville",
+  "persona": [
+    "Operator"
+  ],
+  "use_case": [
+    "demo"
+  ],
+  "version": "1.0.0",
+  "status": "active",
+  "created": "2025-08-25",
+  "updated": "2025-08-25",
+  "tags": [
+    "demo"
+  ],
+  "checksum_sha256": "0c1be63866a035f508627b4bb7c401a1d6e8a9d2f97bf72b605bc73393daae8a"
+}
