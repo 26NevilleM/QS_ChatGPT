@@ -73,3 +73,6 @@ Thumbs.db
 Tools/_scratch/
 vaultwatch.err.log
 vaultwatch.err.log
+*.bak
+*.tmp
+Vault/restore_here_*/
