@@ -1,6 +1,6 @@
 {
   "catalog_version": 1,
-  "generated_at": "2025-08-25T13:16:40Z",
+  "generated_at": "2025-08-25T13:20:22Z",
   "root": "Vault/Prompt_Library",
   "packs": [
     {
@@ -48,19 +48,42 @@
       "updated": "2025-08-25",
       "checksum_sha256": "666a48146aacc36c2d4a1993a87f266e1ce65c42891d6ccffe3b5f1b95d07d2f",
       "checksum_verified": true
+    },
+    {
+      "slug": "demo_003_foo",
+      "title": "Demo Prompt — Foo",
+      "id": "demo_003_foo",
+      "path": "Vault/Prompt_Library/active/demo_003_foo/prompt.md",
+      "bucket": "active",
+      "owner": "Neville",
+      "persona": [
+        "Operator"
+      ],
+      "use_case": [
+        "demo"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "demo"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "61371350d0f0e60a9e75800d1084a66179b26103fc646899a18e804f051098b3",
+      "checksum_verified": true
     }
   ],
   "summary": {
-    "total": 2,
+    "total": 3,
     "by_bucket": {
-      "active": 2,
+      "active": 3,
       "sandbox": 0
     },
-    "checksum_ok": 2,
+    "checksum_ok": 3,
     "checksum_bad": 0
   },
   "notes": {
     "issues": []
   },
-  "fingerprint": "f39f83aabceff0f1507ef45ea6ab2726243bd7181e23d1ff88a76c01c80fcea0"
+  "fingerprint": "2ee9bcab054287d7e1716f474022d51f1d22eada9ec12c0a76a963de0be110af"
 }
