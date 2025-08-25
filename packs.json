@@ -1,0 +1,24 @@
+[
+  {
+    "bucket": "active",
+    "slug": "risk_checker",
+    "title": "Risk & Red Flags Checker",
+    "owner": "Neville",
+    "persona": "Clinician",
+    "use_case": "safety",
+    "version": "1.0.0",
+    "status": "active",
+    "tags": ["safety","checklist"]
+  },
+  {
+    "bucket": "sandbox",
+    "slug": "clinical_coder",
+    "title": "Clinical Coder",
+    "owner": "Neville",
+    "persona": "Operator",
+    "use_case": "coding",
+    "version": "0.1.0",
+    "status": "prototype",
+    "tags": "clinical,coding,icd"
+  }
+]

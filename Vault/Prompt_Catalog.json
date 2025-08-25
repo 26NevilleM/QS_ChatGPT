@@ -1,6 +1,6 @@
 {
   "catalog_version": 1,
-  "generated_at": "2025-08-25T13:20:43Z",
+  "generated_at": "2025-08-25T13:26:21Z",
   "root": "Vault/Prompt_Library",
   "packs": [
     {
@@ -73,6 +73,31 @@
       "checksum_verified": true
     },
     {
+      "slug": "triage_intake",
+      "title": "Clinical Intake Triage",
+      "id": "triage_intake",
+      "path": "Vault/Prompt_Library/active/triage_intake/prompt.md",
+      "bucket": "active",
+      "owner": "Neville",
+      "persona": [
+        "Clinician"
+      ],
+      "use_case": [
+        "intake"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "clinical",
+        "intake",
+        "v1"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "e8844babe877346a72686f302742e1c9b020e3e260745d10e9da7ce387af0ae1",
+      "checksum_verified": true
+    },
+    {
       "slug": "intake_triage",
       "title": "Intake Triage",
       "id": "intake_triage",
@@ -99,16 +124,16 @@
     }
   ],
   "summary": {
-    "total": 4,
+    "total": 5,
     "by_bucket": {
-      "active": 3,
+      "active": 4,
       "sandbox": 1
     },
-    "checksum_ok": 4,
+    "checksum_ok": 5,
     "checksum_bad": 0
   },
   "notes": {
     "issues": []
   },
-  "fingerprint": "8510ee3d803712a004318890225335f34a707f52b997bfd378e1174f290747db"
+  "fingerprint": "b4477a45b6eccb9c470970ae67443f00bc0f30dea1f1c3cdd0411dfd8ae04abd"
 }

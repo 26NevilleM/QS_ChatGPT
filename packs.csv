@@ -1,0 +1,4 @@
+bucket,slug,title,owner,persona,use_case,version,status,tags
+active,triage_intake,"Clinical Intake Triage",Neville,Clinician,intake,1.0.0,active,"clinical,intake,v1"
+sandbox,doc_summary_v1,"Document Summarizer",Neville,Operator,summary,0.1.0,prototype,"docs,summary"
+active,followup_generator,"Follow-up Message Generator",Neville,Operator,comms,1.0.0,active,"comms,followup"
