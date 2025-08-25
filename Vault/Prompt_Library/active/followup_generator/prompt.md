@@ -13,3 +13,13 @@ Use this prompt to …
 - Output is informational and may be incomplete or inaccurate; verify with primary sources.
 - Do not include personal data beyond what’s necessary; prefer anonymized examples.
 - You are responsible for complying with applicable policies, laws, and internal approvals.
+
+## Purpose
+
+## Audience & Persona
+
+## Inputs
+
+## Outputs
+
+## Constraints

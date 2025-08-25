@@ -1,6 +1,6 @@
 {
   "catalog_version": 1,
-  "generated_at": "2025-08-25T13:26:40Z",
+  "generated_at": "2025-08-25T16:43:23Z",
   "root": "Vault/Prompt_Library",
   "packs": [
     {
@@ -23,7 +23,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "53341ab3b31b21dbb66afef2f9ed0967ed1655c0dea6a50068937bc12fc7569e",
+      "checksum_sha256": "cefe1d0074f1931c2f360aa1aeea7ef647be1ccf626fe22058d901bdd0bf001d",
       "checksum_verified": true
     },
     {
@@ -46,7 +46,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "666a48146aacc36c2d4a1993a87f266e1ce65c42891d6ccffe3b5f1b95d07d2f",
+      "checksum_sha256": "781135749eedf4abb8a9a26f6d9ae78e98ff590aed62594d9b5e69c9ef9cf4a8",
       "checksum_verified": true
     },
     {
@@ -69,7 +69,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "61371350d0f0e60a9e75800d1084a66179b26103fc646899a18e804f051098b3",
+      "checksum_sha256": "c3028211cde4a54115ddbb1fd027f25c2d4e7b1e3132212fe1d5408ef7159843",
       "checksum_verified": true
     },
     {
@@ -93,7 +93,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "963a6d6a504e79828bccea802c123f3b7e706aac8bebec817b5b8192681eb112",
+      "checksum_sha256": "8ec0fcf28ecbc166f2940cd1e62c29210e85b37bcb206e3178c39c56a4a7cf69",
       "checksum_verified": true
     },
     {
@@ -117,7 +117,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "3e025ed286a22ac9a04779665f7d20480dd5bf149cb679ebafa37292067c4045",
+      "checksum_sha256": "2e59eb91f4201ed84485cee04d43f13a501e4beab0b9fe7d49de1356e995e0ae",
       "checksum_verified": true
     },
     {
@@ -142,7 +142,24 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "e8844babe877346a72686f302742e1c9b020e3e260745d10e9da7ce387af0ae1",
+      "checksum_sha256": "8df4dee8b23e4c5c951f33e60884ad58350ef1428c5e8f1ff3eca192bc7ffbb5",
+      "checksum_verified": true
+    },
+    {
+      "slug": "_template_smoke",
+      "title": "Template Smoke Test",
+      "id": "_template_smoke",
+      "path": "Vault/Prompt_Library/sandbox/_template_smoke/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": "Sandbox",
+      "use_case": [],
+      "version": "0.0.1",
+      "status": "draft",
+      "tags": [],
+      "created": null,
+      "updated": null,
+      "checksum_sha256": "2029cfb59292f4c8e9cefbfa0aa008d79df2ab5282b3236d75d489143e780783",
       "checksum_verified": true
     },
     {
@@ -167,7 +184,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "6e054d596f5be041524d9d10a150478c9af690ce5480681b6a8613f54371da34",
+      "checksum_sha256": "47110145891bf343f22c5cf1a9031b338c939ad33075080dd3018d2fb9550ecb",
       "checksum_verified": true
     },
     {
@@ -191,7 +208,7 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "052761d5da616942b047e5bf12b7f544f7e16aec094701f9779a66c9e16400b6",
+      "checksum_sha256": "117a895fa49c99d5ecca064d91d7bc65a6d4b62bd3df97a96de5a230695a488c",
       "checksum_verified": true
     },
     {
@@ -216,21 +233,21 @@
       ],
       "created": "2025-08-25",
       "updated": "2025-08-25",
-      "checksum_sha256": "a87533d38146dfde698f509f767659e24c9acb956833ba8c0ecf017621e95d19",
+      "checksum_sha256": "e3d6daab2ea2e995f4145a28905e33c69f3d570029de7c44e022a38f33513732",
       "checksum_verified": true
     }
   ],
   "summary": {
-    "total": 9,
+    "total": 10,
     "by_bucket": {
       "active": 6,
-      "sandbox": 3
+      "sandbox": 4
     },
-    "checksum_ok": 9,
+    "checksum_ok": 10,
     "checksum_bad": 0
   },
   "notes": {
     "issues": []
   },
-  "fingerprint": "8c0410cf2c1e3e3e189e94cda0bc5111e0a9993f36729d49b0f38af93ed585bc"
+  "fingerprint": "b80e10bf2b0d26525ba2e60d6d5a2366759dac991af610fb8247d745d8d9feae"
 }

@@ -1,101 +1,58 @@
 #!/usr/bin/env python3
-"""
-validate_all.py
-- Updates checksums for all prompt packs
-- Rebuilds Prompt_Catalog.json
-- Runs lightweight validations (e.g., disclaimer present)
-- Prints ALL_VALIDATIONS_OK when complete (with WARN lines if needed)
-"""
-
-from __future__ import annotations
-import json
-import sys
-import subprocess
 from pathlib import Path
+import json, re, sys
 
-HERE = Path(__file__).resolve()
-REPO_ROOT = HERE.parents[2]          # <repo>/
-VAULT = REPO_ROOT / "Vault"
-LIB_ROOT = VAULT / "Prompt_Library"
-CATALOG_PATH = VAULT / "Prompt_Catalog.json"
+REQUIRED_SECTIONS = [
+    r'^#\s+.+',                          # Title (H1)
+    r'^##\s+Purpose',
+    r'^##\s+Audience\s*&\s*Persona',
+    r'^##\s+Inputs',
+    r'^##\s+Outputs',
+    r'^##\s+Constraints',
+    r'^##\s+Safety\s*&\s*Verbs',
+    r'^##\s+Legal\s*&\s*Privacy\s*Disclaimer',
+]
 
-UPDATER = VAULT / "tools" / "update_checksums.py"
-CATALOG_BUILDER = VAULT / "tools" / "build_catalog.py"
-
-def run_py(script: Path) -> int:
-    if not script.exists():
-        print(f"[SKIP] {script.relative_to(REPO_ROOT)} missing")
-        return 0
-    p = subprocess.run([sys.executable, str(script)], text=True)
-    return p.returncode
-
-def load_catalog() -> dict:
-    if CATALOG_PATH.exists():
-        try:
-            return json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
-        except Exception as e:
-            print(f"[WARN] Failed to read catalog: {e}")
-    return {"packs": []}
-
-def discover_packs_from_fs():
-    """Fallback if no catalog exists yet."""
+def load_packs():
+    """Find all packs (dirs with meta.json) and return dicts {slug, path}."""
+    root = Path("Vault/Prompt_Library")
     packs = []
-    if not LIB_ROOT.exists():
-        return packs
-    for meta in LIB_ROOT.glob("**/meta.json"):
+    for meta in root.rglob("meta.json"):
         try:
             data = json.loads(meta.read_text(encoding="utf-8"))
-            slug = data.get("slug") or data.get("id") or meta.parent.name
-            path = data.get("path") or str(meta.parent / "prompt.md")
-            packs.append({
-                "slug": slug,
-                "path": path,
-                "bucket": meta.parts[-3] if "Prompt_Library" in meta.parts else "unknown",
-                "checksum_sha256": data.get("checksum_sha256", ""),
-            })
-        except Exception as e:
-            print(f"[WARN] Could not parse {meta}: {e}")
+        except Exception:
+            # If meta is unreadable, still include pack to surface a warning elsewhere.
+            data = {}
+        slug = data.get("slug") or meta.parent.name
+        packs.append({"slug": slug, "path": str(meta.parent)})
     return packs
 
-def check_disclaimer(packs) -> list[str]:
-    """Warn if a prompt.md doesn't contain a Legal & Privacy Disclaimer header."""
-    warnings = []
+def check_disclaimer(packs):
+    """Stub to keep compatibility with older pipelines; add your real checks here."""
+    return []
+
+def check_prompt_sections(packs):
+    warns = []
     for p in packs:
-        prompt_path = REPO_ROOT / p["path"]
+        prompt_path = Path(p["path"]) / "prompt.md"
         if not prompt_path.exists():
-            warnings.append(f"prompt_missing:{p['slug']}")
+            warns.append(f"WARN prompt_missing:{p['slug']}")
             continue
-        try:
-            text = prompt_path.read_text(encoding="utf-8")
-        except Exception as e:
-            warnings.append(f"prompt_unreadable:{p['slug']}:{e}")
-            continue
-        # Very lightweight check — looks for the section header
-        if "## Legal & Privacy Disclaimer" not in text:
-            warnings.append(f"legal_disclaimer_missing:{p['slug']}")
-    return warnings
+        txt = prompt_path.read_text(encoding="utf-8")
+        for pat in REQUIRED_SECTIONS:
+            if re.search(pat, txt, flags=re.MULTILINE) is None:
+                warns.append(f"WARN prompt_section_missing:{p['slug']}: {pat}")
+    return warns
 
-def main() -> int:
-    # 1) Update checksums
-    if run_py(UPDATER) != 0:
-        print("[ERR ] Checksum updater failed")
-        return 1
-
-    # 2) Rebuild catalog
-    if run_py(CATALOG_BUILDER) != 0:
-        print("[ERR ] Catalog builder failed")
-        return 1
-
-    # 3) Load packs (catalog preferred, fallback to filesystem)
-    catalog = load_catalog()
-    packs = catalog.get("packs") or discover_packs_from_fs()
-
-    # 4) Lightweight validations
+def main():
+    packs = load_packs()
     warns = []
     warns += check_disclaimer(packs)
+    warns += check_prompt_sections(packs)
 
+    # Print warnings if any (match your previous log style)
     for w in warns:
-        print("WARN", w)
+        print(w)
 
     print("ALL_VALIDATIONS_OK")
     return 0

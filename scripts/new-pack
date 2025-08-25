@@ -1,147 +1,77 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ------------------------------------------------------------
-# new-pack — scaffold a new prompt pack
-# ------------------------------------------------------------
-# Usage:
-#   scripts/new-pack <bucket> <slug> "<Title>" [--owner "Neville"] [--persona "Operator"] [--use-case "demo"] [--tags "demo,internal"] [--version "1.0.0"] [--status "active"] [--no-push]
-#
-# Examples:
-#   scripts/new-pack active demo_003_foo "Demo Prompt — Foo"
-#   scripts/new-pack sandbox intake_triage "Intake Triage" --persona "Clinician" --use-case "intake" --tags "clinical,intake"
-#
-# Notes:
-# - bucket is usually "active" or "sandbox"
-# - Creates: Vault/Prompt_Library/<bucket>/<slug>/{meta.json,prompt.md}
-# - Then runs checksum + catalog + validate
-# - If --no-push is NOT supplied, commits & pushes (uses your local git config/alias)
-# ------------------------------------------------------------
-
 if [[ $# -lt 3 ]]; then
-  echo "Usage: $0 <bucket> <slug> \"<Title>\" [--owner ...] [--persona ...] [--use-case ...] [--tags ...] [--version ...] [--status ...] [--no-push]"
-  exit 2
+  echo "Usage: scripts/new-pack <bucket> <slug> <title> [--owner NAME] [--persona P] [--use-case U] [--version V] [--status S] [--tags csv] [--no-push]"
+  exit 1
 fi
 
 BUCKET="$1"; shift
 SLUG="$1"; shift
 TITLE="$1"; shift
 
-# Defaults
-OWNER="Neville"
+OWNER="Unknown"
 PERSONA="Operator"
-USE_CASE="demo"
-TAGS="demo"
-VERSION="1.0.0"
-STATUS="active"
+USE_CASE="general"
+VERSION="0.1.0"
+STATUS="prototype"
+TAGS=""
 PUSH=1
 
-# Flags
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --owner)      OWNER="$2"; shift 2 ;;
-    --persona)    PERSONA="$2"; shift 2 ;;
-    --use-case)   USE_CASE="$2"; shift 2 ;;
-    --tags)       TAGS="$2"; shift 2 ;;
-    --version)    VERSION="$2"; shift 2 ;;
-    --status)     STATUS="$2"; shift 2 ;;
-    --no-push)    PUSH=0; shift ;;
-    *) echo "Unknown arg: $1"; exit 2 ;;
+    --owner) OWNER="$2"; shift 2;;
+    --persona) PERSONA="$2"; shift 2;;
+    --use-case) USE_CASE="$2"; shift 2;;
+    --version) VERSION="$2"; shift 2;;
+    --status) STATUS="$2"; shift 2;;
+    --tags) TAGS="$2"; shift 2;;
+    --no-push) PUSH=0; shift;;
+    *) echo "Unknown arg: $1"; exit 1;;
   esac
 done
 
-# Paths
-ROOT="$(pwd)"
 PACK_DIR="Vault/Prompt_Library/${BUCKET}/${SLUG}"
-META_PATH="${PACK_DIR}/meta.json"
-PROMPT_PATH="${PACK_DIR}/prompt.md"
-DATE="$(date +%F)"
+mkdir -p "${PACK_DIR}"
 
-# Guards
-if [[ -d "$PACK_DIR" ]]; then
-  echo "[ERR ] Pack directory already exists: $PACK_DIR"
-  exit 1
-fi
-
-mkdir -p "$PACK_DIR"
-
-# Helper to turn CSV -> JSON array
-csv_to_json_array() {
-  local csv="$1"
-  # trim spaces after commas
-  local clean; clean="$(echo "$csv" | sed 's/, */,/g')"
-  IFS=',' read -r -a items <<< "$clean"
-  local out="["
-  local first=1
-  for it in "${items[@]}"; do
-    # escape internal quotes
-    it="${it//\"/\\\"}"
-    if [[ $first -eq 1 ]]; then
-      out="${out}\"${it}\""
-      first=0
-    else
-      out="${out}, \"${it}\""
-    fi
-  done
-  out="${out}]"
-  printf "%s" "$out"
-}
-
-# Build arrays
-PERSONA_JSON="$(csv_to_json_array "$PERSONA")"
-USE_CASE_JSON="$(csv_to_json_array "$USE_CASE")"
-TAGS_JSON="$(csv_to_json_array "$TAGS")"
-
-# Write meta.json (checksum will be filled by the updater)
-cat > "$META_PATH" <<JSON
+# 1) meta.json
+if [[ ! -f "${PACK_DIR}/meta.json" ]]; then
+  cat > "${PACK_DIR}/meta.json" <<JSON
 {
+  "bucket": "${BUCKET}",
   "slug": "${SLUG}",
   "title": "${TITLE}",
-  "path": "Vault/Prompt_Library/${BUCKET}/${SLUG}/prompt.md",
-  "id": "${SLUG}",
   "owner": "${OWNER}",
-  "persona": ${PERSONA_JSON},
-  "use_case": ${USE_CASE_JSON},
+  "persona": "${PERSONA}",
+  "use_case": "${USE_CASE}",
   "version": "${VERSION}",
   "status": "${STATUS}",
-  "created": "${DATE}",
-  "updated": "${DATE}",
-  "tags": ${TAGS_JSON},
-  "checksum_sha256": ""
+  "tags": ${TAGS:+["${TAGS//,/\",\"}"]}
 }
 JSON
+  echo "[OK ] Created pack at ${PACK_DIR}"
+fi
 
-# Write prompt.md template (includes your standard disclaimers)
-cat > "$PROMPT_PATH" <<'MD'
-# <TITLE>
+# 2) prompt.md (prefer template)
+if [[ ! -f "${PACK_DIR}/prompt.md" ]]; then
+  if [[ -f "Vault/templates/prompt_template.md" ]]; then
+    cp "Vault/templates/prompt_template.md" "${PACK_DIR}/prompt.md"
+    sed -i '' "1s|^# .*|# ${TITLE}|" "${PACK_DIR}/prompt.md"
+  else
+    cat > "${PACK_DIR}/prompt.md" <<MD
+# ${TITLE}
 
-Use this prompt to …
-
----
-
-## Safety & Verbs
-- Use "assist / review / suggest / analyze"; avoid absolutes or promises.
-- Keep tone neutral and non-authoritative.
-- Guidance only; **not legal advice**.
-
-## Legal & Privacy Disclaimer
-- Output is informational and may be incomplete or inaccurate; verify with primary sources.
-- Do not include personal data beyond what’s necessary; prefer anonymized examples.
-- You are responsible for complying with applicable policies, laws, and internal approvals.
+<!-- Write your prompt here -->
 MD
+  fi
+fi
 
-# Swap in the real title
-sed -i '' "s#<TITLE>#${TITLE//\\/\\\\}#g" "$PROMPT_PATH" 2>/dev/null || \
-sed -i "s#<TITLE>#${TITLE//\\/\\\\}#g" "$PROMPT_PATH"
-
-echo "[OK ] Created pack at ${PACK_DIR}"
-
-# Run your toolchain
+# 3) checksum + catalog + validation
 python3 Vault/tools/update_checksums.py
 python3 Vault/tools/build_catalog.py
 python3 Vault/tools/validate_all.py
 
-# Commit & push (uses gp alias if present; else vanilla git)
+# 4) Commit & push
 if [[ $PUSH -eq 1 ]]; then
   if git config --global --get alias.gp >/dev/null; then
     git gp "new: add ${SLUG} pack"
