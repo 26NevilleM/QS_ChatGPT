@@ -1,6 +1,6 @@
 {
   "catalog_version": 1,
-  "generated_at": "2025-08-25T13:26:24Z",
+  "generated_at": "2025-08-25T13:26:27Z",
   "root": "Vault/Prompt_Library",
   "packs": [
     {
@@ -70,6 +70,30 @@
       "created": "2025-08-25",
       "updated": "2025-08-25",
       "checksum_sha256": "61371350d0f0e60a9e75800d1084a66179b26103fc646899a18e804f051098b3",
+      "checksum_verified": true
+    },
+    {
+      "slug": "followup_generator",
+      "title": "Follow-up Message Generator",
+      "id": "followup_generator",
+      "path": "Vault/Prompt_Library/active/followup_generator/prompt.md",
+      "bucket": "active",
+      "owner": "Neville",
+      "persona": [
+        "Operator"
+      ],
+      "use_case": [
+        "comms"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "comms",
+        "followup"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "963a6d6a504e79828bccea802c123f3b7e706aac8bebec817b5b8192681eb112",
       "checksum_verified": true
     },
     {
@@ -148,16 +172,16 @@
     }
   ],
   "summary": {
-    "total": 6,
+    "total": 7,
     "by_bucket": {
-      "active": 4,
+      "active": 5,
       "sandbox": 2
     },
-    "checksum_ok": 6,
+    "checksum_ok": 7,
     "checksum_bad": 0
   },
   "notes": {
     "issues": []
   },
-  "fingerprint": "4a4bc6d6ce03833abca3b6cfa16b8249432ea8c37a6ce75f34f4f2b4e21718fc"
+  "fingerprint": "b8032938d7fae2f01a77904ebe4e53b25d6ddb9eceea3561cbd6047f914b4159"
 }
