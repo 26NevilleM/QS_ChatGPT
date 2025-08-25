@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+if [ -f "Vault/tools/validate_all.py" ]; then
+  python3 Vault/tools/validate_all.py
+else
+  echo "[qsval] Vault/tools/validate_all.py missing; skipping validator."
+fi
