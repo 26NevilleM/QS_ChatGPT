@@ -79,3 +79,7 @@ Vault/restore_here_*/
 *.bak
 *.tmp
 Vault/restore_here_*/
+vaultwatch.err.log
+*.bak
+*.tmp
+Vault/restore_here_*/
