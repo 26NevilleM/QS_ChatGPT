@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Always run from repo root
+cd "$(git rev-parse --show-toplevel)"
+
+# Files to include (edit if you add more docs later)
+FILES=("README.md" "CONTRIBUTING.md" "CHANGELOG.md")
+
+# Warn if any are missing
+missing=0
+for f in "${FILES[@]}"; do
+  [[ -f "$f" ]] || { echo "[WARN] Missing: $f"; missing=1; }
+done
+if [[ $missing -eq 1 ]]; then
+  echo "[NOTE] Proceeding to zip whatever exists."
+fi
+
+ts="$(date +%Y-%m-%d_%H-%M-%S)"
+out="$HOME/Downloads/qs_docs_backup_${ts}.zip"
+
+# Create the zip in ~/Downloads
+zip -q -9 "$out" "${FILES[@]}" 2>/dev/null || true
+
+echo "[OK] Backup created: $out"

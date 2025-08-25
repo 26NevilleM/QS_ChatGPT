@@ -32,3 +32,6 @@ hooks:
 		> .git/hooks/pre-commit
 	@chmod +x .git/hooks/pre-commit
 	@echo "[hooks] pre-commit installed"
+.PHONY: backup
+backup:
+	./scripts/backup-docs
