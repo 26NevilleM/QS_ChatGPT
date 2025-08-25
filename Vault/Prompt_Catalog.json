@@ -1,14 +1,13 @@
 {
   "catalog_version": 1,
-  "generated_at": "2025-08-25T12:39:18Z",
-  "root": "Vault/Prompt_Library",
+  "generated_at": "2025-08-25T12:56:58.281338Z",
+  "root": "/Users/neville/Library/CloudStorage/GoogleDrive-design@qsurgical.co.za/My Drive/QS_ChatGPT/Vault/Prompt_Library",
   "packs": [
     {
       "slug": "demo_001_hello",
       "title": "Demo Prompt — Hello",
-      "id": "demo_001_hello",
       "path": "Vault/Prompt_Library/active/demo_001_hello/prompt.md",
-      "bucket": "active",
+      "id": "demo_001_hello",
       "owner": "Neville",
       "persona": [
         "Operator"
@@ -18,20 +17,20 @@
       ],
       "version": "1.0.0",
       "status": "active",
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
       "tags": [
         "demo"
       ],
-      "created": "2025-08-25",
-      "updated": "2025-08-25",
       "checksum_sha256": "53341ab3b31b21dbb66afef2f9ed0967ed1655c0dea6a50068937bc12fc7569e",
-      "checksum_verified": true
+      "checksum_verified": true,
+      "bucket": "active"
     },
     {
       "slug": "demo_002_world",
       "title": "Demo Prompt — World",
-      "id": "demo_002_world",
       "path": "Vault/Prompt_Library/active/demo_002_world/prompt.md",
-      "bucket": "active",
+      "id": "demo_002_world",
       "owner": "Neville",
       "persona": [
         "Operator"
@@ -41,13 +40,14 @@
       ],
       "version": "1.0.0",
       "status": "active",
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
       "tags": [
         "demo"
       ],
-      "created": "2025-08-25",
-      "updated": "2025-08-25",
       "checksum_sha256": "2401e1061bb45aa07aa9f2e5ec84dda3a692de191c805429847db3b5cbeada1f",
-      "checksum_verified": true
+      "checksum_verified": true,
+      "bucket": "active"
     }
   ],
   "summary": {
