@@ -1,108 +1,99 @@
 #!/usr/bin/env python3
+"""
+Catalog builder: scans Vault/Prompt_Library and writes Vault/Prompt_Catalog.json
+
+Usage:
+  python3 Vault/tools/build_catalog.py
+
+Also exposes:
+  from Vault.tools.build_catalog import build_catalog
+  result = build_catalog()
+"""
+from __future__ import annotations
 import hashlib, json, sys
 from pathlib import Path
-from datetime import datetime
+from typing import Dict, List
 
-REPO_ROOT = Path(__file__).resolve().parents[2]  # .../QS_ChatGPT
-LIB_ROOT  = REPO_ROOT / "Vault" / "Prompt_Library"
-BUCKETS   = ["active", "sandbox"]
-OUT_PATH  = REPO_ROOT / "Vault" / "Prompt_Catalog.json"
+THIS_FILE = Path(__file__).resolve()
+REPO_ROOT = THIS_FILE.parents[2]
+VAULT_ROOT = REPO_ROOT / "Vault"
+LIB_ROOT   = VAULT_ROOT / "Prompt_Library"
+OUT_PATH   = VAULT_ROOT / "Prompt_Catalog.json"
 
-def sha256_text(p: Path) -> str:
+def sha256_file(path: Path) -> str:
     h = hashlib.sha256()
-    with p.open("rb") as f:
-        for chunk in iter(lambda: f.read(8192), b""):
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
 
-def load_pack(dir_path: Path):
-    meta = dir_path / "meta.json"
-    prompt = dir_path / "prompt.md"
-    if not (meta.exists() and prompt.exists()):
-        return None, f"skip: missing files ({'meta' if not meta.exists() else ''}{'+' if (not meta.exists() and not prompt.exists()) else ''}{'prompt' if not prompt.exists() else ''})"
+def build_catalog() -> Dict:
+    packs: List[Dict] = []
+    issues: List[str] = []
 
-    try:
-        data = json.loads(meta.read_text(encoding="utf-8"))
-    except Exception as e:
-        return None, f"bad meta.json: {e}"
-
-    # verify checksum
-    calc = sha256_text(prompt)
-    meta_sum = data.get("checksum_sha256") or ""
-    checksum_ok = (calc == meta_sum)
-
-    entry = {
-        "slug": data.get("slug"),
-        "title": data.get("title"),
-        "id": data.get("id"),
-        "path": str(prompt.relative_to(REPO_ROOT)),
-        "bucket": dir_path.parent.name,  # active/sandbox
-        "owner": data.get("owner"),
-        "persona": data.get("persona", []),
-        "use_case": data.get("use_case", []),
-        "version": data.get("version"),
-        "status": data.get("status"),
-        "tags": data.get("tags", []),
-        "created": data.get("created"),
-        "updated": data.get("updated"),
-        "checksum_sha256": meta_sum,
-        "checksum_verified": checksum_ok,
-    }
-    # Fill any obvious missing identifiers
-    if not entry["slug"]:
-        entry["slug"] = dir_path.name
-    if not entry["id"]:
-        entry["id"] = entry["slug"]
-    if not entry["title"]:
-        entry["title"] = entry["slug"].replace("_", " ").title()
-
-    return entry, None
-
-def main():
-    packs = []
-    issues = []
-
-    for bucket in BUCKETS:
-        bucket_dir = LIB_ROOT / bucket
-        if not bucket_dir.exists():
+    for bucket in ("active", "sandbox"):
+        root = LIB_ROOT / bucket
+        if not root.exists():
             continue
-        for child in sorted(p for p in bucket_dir.iterdir() if p.is_dir()):
-            entry, err = load_pack(child)
-            if entry:
-                packs.append(entry)
-            else:
-                issues.append(f"[{bucket}/{child.name}] {err}")
+        for meta in sorted(root.glob("*/meta.json")):
+            try:
+                meta_data = json.loads(meta.read_text(encoding="utf-8"))
+            except Exception as e:
+                issues.append(f"{bucket}/{meta.parent.name}: invalid JSON ({e})")
+                continue
+
+            slug = meta_data.get("slug", meta.parent.name)
+            prompt_path = REPO_ROOT / meta_data.get("path", "")
+            if not prompt_path.exists():
+                sibling = meta.parent / "prompt.md"
+                if sibling.exists():
+                    prompt_path = sibling
+                else:
+                    issues.append(f"{bucket}/{slug}: prompt.md missing")
+                    continue
+
+            actual = sha256_file(prompt_path)
+            declared = str(meta_data.get("checksum_sha256", "")).strip()
+            meta_data["checksum_verified"] = (declared == actual)
+
+            pack = {
+                **meta_data,
+                "bucket": bucket,
+                "checksum_sha256": actual,
+            }
+            packs.append(pack)
 
     catalog = {
         "catalog_version": 1,
-        "generated_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
-        "root": str(LIB_ROOT.relative_to(REPO_ROOT)),
+        "generated_at": __import__("datetime").datetime.utcnow().isoformat() + "Z",
+        "root": str(LIB_ROOT),
         "packs": packs,
         "summary": {
             "total": len(packs),
             "by_bucket": {
-                b: sum(1 for p in packs if p["bucket"] == b) for b in BUCKETS
+                "active": sum(1 for p in packs if p["bucket"] == "active"),
+                "sandbox": sum(1 for p in packs if p["bucket"] == "sandbox"),
             },
-            "checksum_ok": sum(1 for p in packs if p["checksum_verified"]),
-            "checksum_bad": sum(1 for p in packs if not p["checksum_verified"]),
+            "checksum_ok": sum(1 for p in packs if p.get("checksum_verified")),
+            "checksum_bad": sum(1 for p in packs if not p.get("checksum_verified")),
         },
-        "notes": {
-            "issues": issues
-        }
+        "notes": { "issues": issues }
     }
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUT_PATH.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
-    # friendly console output
     print(f"[OK] Wrote catalog -> {OUT_PATH}")
     if issues:
-        print("[WARN] Some packs were skipped or have issues:")
+        print("[WARN] Some packs had issues:")
         for i in issues:
             print(" -", i)
-    bad = [p["slug"] for p in packs if not p["checksum_verified"]]
-    if bad:
-        print("[WARN] Checksum mismatches for:", ", ".join(bad))
+
+    return catalog
+
+def main() -> int:
+    build_catalog()
+    return 0
 
 if __name__ == "__main__":
     sys.exit(main())
