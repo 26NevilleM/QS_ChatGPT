@@ -1,6 +1,6 @@
 {
   "catalog_version": 1,
-  "generated_at": "2025-08-25T13:26:21Z",
+  "generated_at": "2025-08-25T13:26:24Z",
   "root": "Vault/Prompt_Library",
   "packs": [
     {
@@ -98,6 +98,30 @@
       "checksum_verified": true
     },
     {
+      "slug": "doc_summary_v1",
+      "title": "Document Summarizer",
+      "id": "doc_summary_v1",
+      "path": "Vault/Prompt_Library/sandbox/doc_summary_v1/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": [
+        "Operator"
+      ],
+      "use_case": [
+        "summary"
+      ],
+      "version": "0.1.0",
+      "status": "prototype",
+      "tags": [
+        "docs",
+        "summary"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "052761d5da616942b047e5bf12b7f544f7e16aec094701f9779a66c9e16400b6",
+      "checksum_verified": true
+    },
+    {
       "slug": "intake_triage",
       "title": "Intake Triage",
       "id": "intake_triage",
@@ -124,16 +148,16 @@
     }
   ],
   "summary": {
-    "total": 5,
+    "total": 6,
     "by_bucket": {
       "active": 4,
-      "sandbox": 1
+      "sandbox": 2
     },
-    "checksum_ok": 5,
+    "checksum_ok": 6,
     "checksum_bad": 0
   },
   "notes": {
     "issues": []
   },
-  "fingerprint": "b4477a45b6eccb9c470970ae67443f00bc0f30dea1f1c3cdd0411dfd8ae04abd"
+  "fingerprint": "4a4bc6d6ce03833abca3b6cfa16b8249432ea8c37a6ce75f34f4f2b4e21718fc"
 }

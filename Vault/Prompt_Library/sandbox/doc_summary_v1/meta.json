@@ -1,0 +1,22 @@
+{
+  "slug": "doc_summary_v1",
+  "title": "Document Summarizer",
+  "path": "Vault/Prompt_Library/sandbox/doc_summary_v1/prompt.md",
+  "id": "doc_summary_v1",
+  "owner": "Neville",
+  "persona": [
+    "Operator"
+  ],
+  "use_case": [
+    "summary"
+  ],
+  "version": "0.1.0",
+  "status": "prototype",
+  "created": "2025-08-25",
+  "updated": "2025-08-25",
+  "tags": [
+    "docs",
+    "summary"
+  ],
+  "checksum_sha256": "052761d5da616942b047e5bf12b7f544f7e16aec094701f9779a66c9e16400b6"
+}
