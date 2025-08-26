@@ -1,37 +1,57 @@
 #!/bin/sh
-set -e
+# Portable docs backup helper.
 
+# Defaults (override via env / make)
 DOCS_DIR="${DOCS_DIR:-.}"
+DOCS_FILES="${DOCS_FILES:-$DOCS_DIR/README.md $DOCS_DIR/CONTRIBUTING.md $DOCS_DIR/CHANGELOG.md}"
+DOCS_EXCLUDES="${DOCS_EXCLUDES:-}"
 
 if [ "${1:-}" = "--prune-only" ]; then
   echo "[PRUNE] Only pruning old backups (keeping 10 newest)..."
-else
-  ts="$(date +%Y-%m-%d_%H-%M-%S)"
-  zipfile="$HOME/Downloads/qs_docs_backup_${ts}.zip"
-
-  # Collect files that actually exist
-  files=""
-  for f in "$DOCS_DIR/README.md" "$DOCS_DIR/CONTRIBUTING.md" "$DOCS_DIR/CHANGELOG.md"; do
-    [ -f "$f" ] && files="$files $f"
+  count=0
+  ls -1t "$HOME"/Downloads/qs_docs_backup_*.zip 2>/dev/null | while IFS= read -r f; do
+    count=$((count+1))
+    if [ "$count" -gt 10 ]; then rm -f -- "$f"; fi
   done
-
-  if [ -n "$files" ]; then
-    # SC2086 intentional: we want $files to expand into separate paths
-    zip -qr "$zipfile" $files
-    echo "[OK] Backup created: $zipfile"
-  else
-    echo "[SKIP] No docs found in '$DOCS_DIR'; skipping backup."
-    # Just in case: ensure we didn't leave an empty file lying around
-    rm -f "$zipfile" 2>/dev/null || true
-  fi
+  exit 0
 fi
 
-# --- Prune old backups: keep the 10 newest (portable) ---
+ts="$(date +%Y-%m-%d_%H-%M-%S)"
+zipfile="$HOME/Downloads/qs_docs_backup_${ts}.zip"
+
+# Build lists of existing files/dirs from DOCS_FILES (globs allowed)
+files=""
+dirs=""
+for f in $DOCS_FILES; do
+  if [ -f "$f" ]; then
+    files="$files $f"
+  elif [ -d "$f" ]; then
+    dirs="$dirs $f"
+  fi
+done
+
+# Create the zip if we have something to archive
+if [ -n "$files$dirs" ]; then
+  if [ -n "$DOCS_EXCLUDES" ]; then
+    # Turn space-separated patterns into multiple -x args
+    set -- $DOCS_EXCLUDES
+    ex_args=""
+    for pat in "$@"; do ex_args="$ex_args -x $pat"; done
+    # shellcheck disable=SC2086
+    zip -qr "$zipfile" $dirs $files $ex_args 2>/dev/null || true
+  else
+    # shellcheck disable=SC2086
+    zip -qr "$zipfile" $dirs $files 2>/dev/null || true
+  fi
+  echo "[OK] Backup created: $zipfile"
+else
+  echo "[SKIP] No matching files in '$DOCS_DIR'; skipping backup."
+  exit 0
+fi
+
+# Prune old backups: keep the 10 newest (portable)
 count=0
 ls -1t "$HOME"/Downloads/qs_docs_backup_*.zip 2>/dev/null | while IFS= read -r f; do
   count=$((count+1))
-  if [ "$count" -gt 10 ]; then
-    rm -f -- "$f"
-  fi
+  if [ "$count" -gt 10 ]; then rm -f -- "$f"; fi
 done
-# --- end prune block ---
