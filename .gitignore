@@ -1,23 +1,18 @@
 # macOS
 .DS_Store
-
 # Editors/IDEs
 .vscode/
 .idea/
-
 # Python
 __pycache__/
 *.pyc
 .venv/
 venv/
-
 # Node (if you add any tooling)
 node_modules/
-
 # Build/Release
 dist/
 *.log
-
 # Secrets (if you add them later)
 .env
 .env.*
@@ -30,3 +25,9 @@ Vault/**/*.bak
 qs_docs_backup*.zip
 qs_docs_bundle*.zip
 scripts/**/*.bak
+*.bak
+backups/
+mk/
+scripts/dev/
+scripts/backup-docs.broken
+*.patch
