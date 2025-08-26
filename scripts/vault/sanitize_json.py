@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import sys, re, json, io, os
 p=sys.argv[1]
 raw=open(p,"r",encoding="utf-8").read()
