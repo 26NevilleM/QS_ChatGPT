@@ -25,3 +25,8 @@ secrets.*
 # Vault pack artifacts
 Vault/Packs/**/*.zip
 Vault/restore_here_*/
+Vault/**/.backups/
+Vault/**/*.bak
+qs_docs_backup*.zip
+qs_docs_bundle*.zip
+scripts/**/*.bak
