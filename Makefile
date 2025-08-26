@@ -1,42 +1,22 @@
-PY ?= python3
+# Root Makefile
+SHELL := /bin/sh
 
-.PHONY: default validate checksums catalog hooks help
+include mk/docs.mk
 
-default: validate
 
-help:
-	@echo "Targets:"
-	@echo "  make            - default target (validate)"
-	@echo "  make validate   - run checksums, catalog build, and validator"
-	@echo "  make checksums  - update checksums"
-	@echo "  make catalog    - rebuild catalog"
-	@echo "  make hooks      - install git pre-commit hook"
+include mk/dev.mk
 
-validate: checksums catalog
-	$(PY) Vault/tools/validate_all.py
+vault-init:
+	chmod +x scripts/vault/vault_init.sh scripts/vault/vault_tree.sh scripts/vault/vault_lint.sh scripts/vault/vault_backup.sh
+	scripts/vault/vault_init.sh
 
-checksums:
-	$(PY) Vault/tools/update_checksums.py
+vault-tree:
+	scripts/vault/vault_tree.sh
 
-catalog:
-	$(PY) Vault/tools/build_catalog.py
 
-hooks:
-	@mkdir -p .git/hooks
-	@printf '%s\n' \
-		'#!/usr/bin/env bash' \
-		'set -euo pipefail' \
-		'python3 Vault/tools/update_checksums.py' \
-		'python3 Vault/tools/build_catalog.py' \
-		'python3 Vault/tools/validate_all.py' \
-		> .git/hooks/pre-commit
-	@chmod +x .git/hooks/pre-commit
-	@echo "[hooks] pre-commit installed"
-.PHONY: backup
-backup:
-	./scripts/backup-docs
+vault-index:
+	scripts/vault/vault_index.sh
 
-.PHONY: docs-tidy
-docs-tidy:
-	python3 Vault/tools/fix_markdown_fences.py || true
-	@printf "[OK] Docs tidied: code fences normalized & stray markers removed\n"
+vault-lint:
+	scripts/vault/vault_lint.sh
+	make vault-index
