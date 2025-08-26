@@ -1,70 +1,38 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -u
 
-# --- locate repo root (works even if you run from a subdir) ---
-if git_root="$(git rev-parse --show-toplevel 2>/dev/null)"; then
-  cd "$git_root"
-fi
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "$REPO_ROOT" || exit 1
 
-# --- logging ---
-ts="$(date +%Y-%m-%d_%H-%M-%S)"
-LOG="$HOME/Desktop/vault_validation_$ts.log"
-echo "[vf_sanitize_all] started at $(date)" | tee -a "$LOG"
+LOG="$HOME/Desktop/vault_validation_$(date +%F_%H-%M-%S).log"
+: > "$LOG"
 
-# --- build list of files to sanitize (JSON + prompt.md, skip backups and packs) ---
-mapfile -d '' FILES < <(
-  find Vault -type f \
-    \( -name '*.json' -o -path '*/Prompt_Library/*/prompt.md' \) \
-    ! -path 'Vault/Packs/*' \
-    ! -name '*.bak' \
-    -print0
-)
-
-if [[ ${#FILES[@]} -eq 0 ]]; then
-  echo "[vf_sanitize_all] No candidate files found." | tee -a "$LOG"
-  exit 0
-fi
-
-# --- run the sanitizer per file with python3 (avoid calling the script as sh) ---
-PY="python3"
-SAN="scripts/vault/sanitize_json.py"
-
-if [[ ! -x "$SAN" ]]; then
-  # ensure it has a shebang (harmless if already present)
-  if ! head -n1 "$SAN" | grep -q '^#!'; then
-    tmp="$(mktemp)"; printf '%s\n' '#!/usr/bin/env python3' | cat - "$SAN" > "$tmp" && mv "$tmp" "$SAN"
-  fi
-  chmod +x "$SAN"
-fi
-
-echo "[vf_sanitize_all] Processing ${#FILES[@]} files..." | tee -a "$LOG"
-changed=0
-for f in "${FILES[@]}"; do
-  echo "  → $f" | tee -a "$LOG"
-  # Run under python3 explicitly, capture exit code
-  if "$PY" "$SAN" "$f" >>"$LOG" 2>&1; then
-    :
-  else
-    echo "     [WARN] sanitizer returned non-zero for: $f" | tee -a "$LOG"
-  fi
+# ---- JSON: sanitize only *.json ----
+find Vault -type f -name '*.json' -print0 |
+while IFS= read -r -d '' f; do
+  echo "[JSON] $f" | tee -a "$LOG"
+  python3 scripts/vault/sanitize_json.py "$f" >>"$LOG" 2>&1 \
+    || echo "[WARN] json-sanitizer exit code $? on $f" | tee -a "$LOG"
 done
 
-# --- stage & commit only if there are changes ---
-if ! git diff --quiet -- Vault; then
-  echo "[vf_sanitize_all] Changes detected; staging…" | tee -a "$LOG"
-  git add Vault
-  if ! git diff --cached --quiet; then
-    msg="chore: vault validation + auto-fixes ($(date +%Y-%m-%d))"
-    git commit -m "$msg" | tee -a "$LOG"
-    echo "[vf_sanitize_all] Pushing…" | tee -a "$LOG"
-    git push | tee -a "$LOG"
-    changed=1
-  fi
+# ---- Markdown: fence check only prompt.md ----
+find Vault -type f -path '*/Prompt_Library/*/prompt.md' -print0 |
+while IFS= read -r -d '' f; do
+  echo "[MD]   $f" | tee -a "$LOG"
+  python3 scripts/vault/check_markdown_fences.py "$f" >>"$LOG" 2>&1 \
+    || echo "[WARN] md-fence checker exit code $? on $f" | tee -a "$LOG"
+done
+
+# ---- Git: commit if there are changes ----
+git add -A
+if ! git diff --cached --quiet; then
+  git commit -m "chore: vault sanitize (json-only + md-fences)"
+  git push
+  echo "[GIT] committed & pushed" | tee -a "$LOG"
 else
-  echo "[vf_sanitize_all] No changes produced by sanitizer." | tee -a "$LOG"
+  echo "[GIT] no changes to commit" | tee -a "$LOG"
 fi
 
-echo "[vf_sanitize_all] done. Log: $LOG" | tee -a "$LOG"
-
-# exit status reflects whether we changed anything (0 = no change, 1 = changed)
-exit $changed
+echo
+echo "Tail of log:"
+tail -n 40 "$LOG"
