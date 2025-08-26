@@ -35,3 +35,8 @@ hooks:
 .PHONY: backup
 backup:
 	./scripts/backup-docs
+
+.PHONY: docs-tidy
+docs-tidy:
+	python3 Vault/tools/fix_markdown_fences.py || true
+	@printf "[OK] Docs tidied: code fences normalized & stray markers removed\n"
