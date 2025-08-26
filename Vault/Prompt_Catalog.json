@@ -1,4 +1,314 @@
 {
-  "version": "0.1.0",
-  "prompts": []
+  "catalog_version": 1,
+  "generated_at": "2025-08-26T17:32:56Z",
+  "root": "Vault/Prompt_Library",
+  "packs": [
+    {
+      "slug": "demo_001_hello",
+      "title": "Demo Prompt — Hello",
+      "id": "demo_001_hello",
+      "path": "Vault/Prompt_Library/active/demo_001_hello/prompt.md",
+      "bucket": "active",
+      "owner": "Neville",
+      "persona": [
+        "Operator"
+      ],
+      "use_case": [
+        "demo"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "demo"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "38ec7a95b0ede4a704d4ce8339e21df84b53cbc57b8adec870678e45a0846f96",
+      "checksum_verified": true
+    },
+    {
+      "slug": "demo_002_world",
+      "title": "Demo Prompt — World",
+      "id": "demo_002_world",
+      "path": "Vault/Prompt_Library/active/demo_002_world/prompt.md",
+      "bucket": "active",
+      "owner": "Neville",
+      "persona": [
+        "Operator"
+      ],
+      "use_case": [
+        "demo"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "demo"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "38d1b2a33b6cc7c32637113a8a397d765519a0bdfd3373499467ff9ad069e9d6",
+      "checksum_verified": true
+    },
+    {
+      "slug": "demo_003_foo",
+      "title": "Demo Prompt — Foo",
+      "id": "demo_003_foo",
+      "path": "Vault/Prompt_Library/active/demo_003_foo/prompt.md",
+      "bucket": "active",
+      "owner": "Neville",
+      "persona": [
+        "Operator"
+      ],
+      "use_case": [
+        "demo"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "demo"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "a0ceb76a3d89b9fcf61a0552cf4612251036d27a52c1a1350d792994852147d3",
+      "checksum_verified": true
+    },
+    {
+      "slug": "followup_generator",
+      "title": "Follow-up Message Generator",
+      "id": "followup_generator",
+      "path": "Vault/Prompt_Library/active/followup_generator/prompt.md",
+      "bucket": "active",
+      "owner": "Neville",
+      "persona": [
+        "Operator"
+      ],
+      "use_case": [
+        "comms"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "comms",
+        "followup"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "570fe3e4db4ac6c8dc6fe8a2df6cb9a93594b5c5310d673aa94ef56e242f4e28",
+      "checksum_verified": true
+    },
+    {
+      "slug": "risk_checker",
+      "title": "Risk & Red Flags Checker",
+      "id": "risk_checker",
+      "path": "Vault/Prompt_Library/active/risk_checker/prompt.md",
+      "bucket": "active",
+      "owner": "Neville",
+      "persona": [
+        "Clinician"
+      ],
+      "use_case": [
+        "safety"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "safety",
+        "checklist"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "389e082ee63fe72212ccd98a27c736c4adea4b0fb0a11ede862760a0f059689c",
+      "checksum_verified": true
+    },
+    {
+      "slug": "triage_intake",
+      "title": "Clinical Intake Triage",
+      "id": "triage_intake",
+      "path": "Vault/Prompt_Library/active/triage_intake/prompt.md",
+      "bucket": "active",
+      "owner": "Neville",
+      "persona": [
+        "Clinician"
+      ],
+      "use_case": [
+        "intake"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "clinical",
+        "intake",
+        "v1"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "2bd677c47101cf863d807dec1832bf0b28b4291a6d23252babbdda70687c9315",
+      "checksum_verified": true
+    },
+    {
+      "slug": "_template_smoke",
+      "title": "Template Smoke Test",
+      "id": "_template_smoke",
+      "path": "Vault/Prompt_Library/sandbox/_template_smoke/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": "Sandbox",
+      "use_case": [],
+      "version": "0.0.1",
+      "status": "draft",
+      "tags": [],
+      "created": null,
+      "updated": null,
+      "checksum_sha256": "5cbf37268f94b4f23a6eed295cc5c6e0627d6d8adc8d3fcc0e7443559d688f63",
+      "checksum_verified": true
+    },
+    {
+      "slug": "clinical_coder",
+      "title": "Clinical Coder",
+      "id": "clinical_coder",
+      "path": "Vault/Prompt_Library/sandbox/clinical_coder/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": [
+        "Operator"
+      ],
+      "use_case": [
+        "coding"
+      ],
+      "version": "0.1.0",
+      "status": "prototype",
+      "tags": [
+        "clinical",
+        "coding",
+        "icd"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "3e86d7ced2347f4f6f549627a2e9a52cb6c8deab527d76762c12f2357bae06ad",
+      "checksum_verified": true
+    },
+    {
+      "slug": "demo_policy_check",
+      "title": "Policy Check",
+      "id": "demo_policy_check",
+      "path": "Vault/Prompt_Library/sandbox/demo_policy_check/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": "Sandbox",
+      "use_case": "Check policy sections",
+      "version": "0.1.0",
+      "status": "draft",
+      "tags": [
+        "qa",
+        "policy"
+      ],
+      "created": null,
+      "updated": null,
+      "checksum_sha256": "91208383f263484e94d122b8f3b81465f668cfb080641d3edd15a318545738c4",
+      "checksum_verified": true
+    },
+    {
+      "slug": "doc_summary_v1",
+      "title": "Document Summarizer",
+      "id": "doc_summary_v1",
+      "path": "Vault/Prompt_Library/sandbox/doc_summary_v1/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": [
+        "Operator"
+      ],
+      "use_case": [
+        "summary"
+      ],
+      "version": "0.1.0",
+      "status": "prototype",
+      "tags": [
+        "docs",
+        "summary"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "8f7a6eb5b5787d61b615454b5337056ea60b4c020d67c4edff0d3739faf03063",
+      "checksum_verified": true
+    },
+    {
+      "slug": "followup_generator",
+      "title": "Follow-up Message Generator",
+      "id": "followup_generator",
+      "path": "Vault/Prompt_Library/sandbox/followup_generator/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": "Operator",
+      "use_case": "comms",
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "comms",
+        "followup"
+      ],
+      "created": null,
+      "updated": null,
+      "checksum_sha256": "570fe3e4db4ac6c8dc6fe8a2df6cb9a93594b5c5310d673aa94ef56e242f4e28",
+      "checksum_verified": true
+    },
+    {
+      "slug": "intake_triage",
+      "title": "Intake Triage",
+      "id": "intake_triage",
+      "path": "Vault/Prompt_Library/sandbox/intake_triage/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": [
+        "Clinician"
+      ],
+      "use_case": [
+        "intake"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "clinical",
+        "intake",
+        "v1"
+      ],
+      "created": "2025-08-25",
+      "updated": "2025-08-25",
+      "checksum_sha256": "3e95f5de3cbb7a148fbeb16879ca80b74de15615b3838057e87b5ef30d725f2c",
+      "checksum_verified": true
+    },
+    {
+      "slug": "triage_intake",
+      "title": "Clinical Intake Triage",
+      "id": "triage_intake",
+      "path": "Vault/Prompt_Library/sandbox/triage_intake/prompt.md",
+      "bucket": "sandbox",
+      "owner": "Neville",
+      "persona": "Clinician",
+      "use_case": "intake",
+      "version": "1.0.0",
+      "status": "active",
+      "tags": [
+        "clinical",
+        "intake",
+        "v1"
+      ],
+      "created": null,
+      "updated": null,
+      "checksum_sha256": "0bfa78421c54a91e338156511ff071883bb2ba376058cb7435d2dadf6785ae7e",
+      "checksum_verified": true
+    }
+  ],
+  "summary": {
+    "total": 13,
+    "by_bucket": {
+      "active": 6,
+      "sandbox": 7
+    },
+    "checksum_ok": 13,
+    "checksum_bad": 0
+  },
+  "notes": {
+    "issues": []
+  },
+  "fingerprint": "c8fba46d63ed2e006771383b8f6eb87c4b6fb6c995f79604a1f594618a8599f1"
 }
