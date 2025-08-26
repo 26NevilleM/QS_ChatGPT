@@ -1,30 +1,32 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/sh
+set -e
 
-# Always run from repo root
-cd "$(git rev-parse --show-toplevel)"
+DOCS_DIR="${DOCS_DIR:-.}"
 
-# Files to include (edit if you add more docs later)
-FILES=("README.md" "CONTRIBUTING.md" "CHANGELOG.md")
+if [ "${1:-}" = "--prune-only" ]; then
+  echo "[PRUNE] Only pruning old backups (keeping 10 newest)..."
+else
+  ts="$(date +%Y-%m-%d_%H-%M-%S)"
+  zipfile="$HOME/Downloads/qs_docs_backup_${ts}.zip"
 
-# Warn if any are missing
-missing=0
-for f in "${FILES[@]}"; do
-  [[ -f "$f" ]] || { echo "[WARN] Missing: $f"; missing=1; }
-done
-if [[ $missing -eq 1 ]]; then
-  echo "[NOTE] Proceeding to zip whatever exists."
+  # Collect files that actually exist
+  files=""
+  for f in "$DOCS_DIR/README.md" "$DOCS_DIR/CONTRIBUTING.md" "$DOCS_DIR/CHANGELOG.md"; do
+    [ -f "$f" ] && files="$files $f"
+  done
+
+  if [ -n "$files" ]; then
+    # SC2086 intentional: we want $files to expand into separate paths
+    zip -qr "$zipfile" $files
+    echo "[OK] Backup created: $zipfile"
+  else
+    echo "[SKIP] No docs found in '$DOCS_DIR'; skipping backup."
+    # Just in case: ensure we didn't leave an empty file lying around
+    rm -f "$zipfile" 2>/dev/null || true
+  fi
 fi
 
-ts="$(date +%Y-%m-%d_%H-%M-%S)"
-out="$HOME/Downloads/qs_docs_backup_${ts}.zip"
-
-# Create the zip in ~/Downloads
-zip -q -9 "$out" "${FILES[@]}" 2>/dev/null || true
-
-echo "[OK] Backup created: $out"
-# --- Prune old backups: keep the 10 newest, delete the rest (portable) ---
-# Filenames are predictable (no spaces). Use ls -t + while loop (no xargs, no mapfile).
+# --- Prune old backups: keep the 10 newest (portable) ---
 count=0
 ls -1t "$HOME"/Downloads/qs_docs_backup_*.zip 2>/dev/null | while IFS= read -r f; do
   count=$((count+1))
