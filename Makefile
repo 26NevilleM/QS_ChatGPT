@@ -1,3 +1,4 @@
+.PHONY: vault-index vault-lint pack-export pack-import pack-list
 # Root Makefile
 SHELL := /bin/sh
 
@@ -20,3 +21,12 @@ vault-index:
 vault-lint:
 	scripts/vault/vault_lint.sh
 	make vault-index
+
+pack-export:
+	@scripts/vault/pack_export.sh
+
+pack-import:
+	@scripts/vault/pack_import.sh $(FILE)
+
+pack-list:
+	@scripts/vault/pack_list.sh

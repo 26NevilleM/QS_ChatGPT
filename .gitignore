@@ -1,85 +1,27 @@
-# ==========================
 # macOS
-# ==========================
 .DS_Store
-.AppleDouble
-.LSOverride
-Icon?
-._*
 
-# ==========================
+# Editors/IDEs
+.vscode/
+.idea/
+
 # Python
-# ==========================
 __pycache__/
-*.py[cod]
-*$py.class
-.env
-.venv
-ENV/
-env/
+*.pyc
+.venv/
 venv/
-pip-log.txt
-pip-delete-this-directory.txt
 
-# ==========================
-# VSCode / JetBrains
-# ==========================
-.vscode/
-.idea/
-*.swp
+# Node (if you add any tooling)
+node_modules/
 
-# ==========================
-# Logs & Temp
-# ==========================
+# Build/Release
+dist/
 *.log
-vaultwatch*.log
-*.out
-*.err
 
-# ==========================
-# Smoke test artifacts
-# ==========================
-Q_Vault_v2.0.0_FULL/Vault/Changelog/*SmokeTest_Report.json
-
-# ==========================
-# GitHub Actions artifacts
-# ==========================
-*.zip
-*.tar.gz
-*.tgz
-*.bak
-vaultwatch.err.log
-# macOS / Finder
-.DS_Store
-._*
-
-# Logs & temp
-*.log
-*.err.log
-*.tmp
-/tmp/
-.vscode/
-.idea/
-
-# Archives & manifests
-*.zip
-*.manifest.txt
-
-# Google Drive detritus
-*.tmp.drivedownload
-Thumbs.db
-
-# Local scripts scratch
-Tools/_scratch/
-vaultwatch.err.log
-vaultwatch.err.log
-*.bak
-*.tmp
-Vault/restore_here_*/
-*.bak
-*.tmp
-Vault/restore_here_*/
-vaultwatch.err.log
-*.bak
-*.tmp
+# Secrets (if you add them later)
+.env
+.env.*
+secrets.*
+# Vault pack artifacts
+Vault/Packs/**/*.zip
 Vault/restore_here_*/
