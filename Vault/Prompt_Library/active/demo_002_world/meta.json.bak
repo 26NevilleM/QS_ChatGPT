@@ -1,0 +1,21 @@
+{
+  "slug": "demo_002_world",
+  "title": "Demo Prompt — World",
+  "path": "Vault/Prompt_Library/active/demo_002_world/prompt.md",
+  "id": "demo_002_world",
+  "owner": "Neville",
+  "persona": [
+    "Operator"
+  ],
+  "use_case": [
+    "demo"
+  ],
+  "version": "1.0.0",
+  "status": "active",
+  "created": "2025-08-25",
+  "updated": "2025-08-25",
+  "tags": [
+    "demo"
+  ],
+  "checksum_sha256": "4fbe04e98268410cf6aebf48c58d5a318d3f34c3b3f9084a36cda16dbd3e9be8"
+}

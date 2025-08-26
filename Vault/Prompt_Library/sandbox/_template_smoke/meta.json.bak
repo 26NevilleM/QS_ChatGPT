@@ -1,0 +1,12 @@
+{
+  "slug": "_template_smoke",
+  "title": "Template Smoke Test",
+  "owner": "Neville",
+  "persona": "Sandbox",
+  "use_case": "",
+  "version": "0.0.1",
+  "status": "draft",
+  "tags": [],
+  "created_at": "2025-08-25T00:00:00Z",
+  "checksum_sha256": "2029cfb59292f4c8e9cefbfa0aa008d79df2ab5282b3236d75d489143e780783"
+}

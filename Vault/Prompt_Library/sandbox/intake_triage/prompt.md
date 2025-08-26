@@ -37,9 +37,7 @@ State what this prompt is for and the main outcome.
 3) …
 ## Examples
 ### Example 1 — Input
-heredoc>
 ### Example 1 — Output
-heredoc>
 ## Tool Use (if applicable)
 - Tools available
 - When to call

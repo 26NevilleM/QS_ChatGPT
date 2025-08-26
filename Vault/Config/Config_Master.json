@@ -1,0 +1,19 @@
+{
+  "config_version": "1.0.0",
+  "__metadata": {
+    "created": "2025-08-26T10:52:55Z",
+    "owner": "QS_ChatGPT/BEAST",
+    "notes": "Seed master config"
+  },
+  "personas": {},
+  "modules": {},
+  "policies": {},
+  "paths": {
+    "modules": "Vault/Modules",
+    "snapshots": "Vault/Snapshots",
+    "patches": "Vault/Patches",
+    "tools": "Vault/Tools",
+    "inbox": "Vault/Inbox",
+    "archive": "Vault/Archive"
+  }
+}

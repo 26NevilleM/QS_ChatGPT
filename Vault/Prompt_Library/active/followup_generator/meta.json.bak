@@ -1,0 +1,22 @@
+{
+  "slug": "followup_generator",
+  "title": "Follow-up Message Generator",
+  "path": "Vault/Prompt_Library/active/followup_generator/prompt.md",
+  "id": "followup_generator",
+  "owner": "Neville",
+  "persona": [
+    "Operator"
+  ],
+  "use_case": [
+    "comms"
+  ],
+  "version": "1.0.0",
+  "status": "active",
+  "created": "2025-08-25",
+  "updated": "2025-08-25",
+  "tags": [
+    "comms",
+    "followup"
+  ],
+  "checksum_sha256": "dde9513982935c589af8209491eb7b99b5b7f7e59162d19151c88cdbdd943d55"
+}

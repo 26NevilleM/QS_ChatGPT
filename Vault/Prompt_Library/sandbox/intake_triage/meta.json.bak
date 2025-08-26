@@ -1,0 +1,23 @@
+{
+  "slug": "intake_triage",
+  "title": "Intake Triage",
+  "path": "Vault/Prompt_Library/sandbox/intake_triage/prompt.md",
+  "id": "intake_triage",
+  "owner": "Neville",
+  "persona": [
+    "Clinician"
+  ],
+  "use_case": [
+    "intake"
+  ],
+  "version": "1.0.0",
+  "status": "active",
+  "created": "2025-08-25",
+  "updated": "2025-08-25",
+  "tags": [
+    "clinical",
+    "intake",
+    "v1"
+  ],
+  "checksum_sha256": "841994f0d4224e0afcca85c09a4510b238d179d2eb8c3f93edcbcf6b1e93b3f9"
+}

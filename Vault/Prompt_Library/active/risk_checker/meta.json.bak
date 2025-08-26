@@ -1,0 +1,22 @@
+{
+  "slug": "risk_checker",
+  "title": "Risk & Red Flags Checker",
+  "path": "Vault/Prompt_Library/active/risk_checker/prompt.md",
+  "id": "risk_checker",
+  "owner": "Neville",
+  "persona": [
+    "Clinician"
+  ],
+  "use_case": [
+    "safety"
+  ],
+  "version": "1.0.0",
+  "status": "active",
+  "created": "2025-08-25",
+  "updated": "2025-08-25",
+  "tags": [
+    "safety",
+    "checklist"
+  ],
+  "checksum_sha256": "170cb22439716cadce8da5d4cf63e20d91369bb82a070d367ba9a05674ea77af"
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "clinical_coder",
+  "title": "Clinical Coder",
+  "path": "Vault/Prompt_Library/sandbox/clinical_coder/prompt.md",
+  "id": "clinical_coder",
+  "owner": "Neville",
+  "persona": [
+    "Operator"
+  ],
+  "use_case": [
+    "coding"
+  ],
+  "version": "0.1.0",
+  "status": "prototype",
+  "created": "2025-08-25",
+  "updated": "2025-08-25",
+  "tags": [
+    "clinical",
+    "coding",
+    "icd"
+  ],
+  "checksum_sha256": "c4b4d1e9754d170e6e2e5a2a7b78c41b2093c09ee0a2e24c715a68d16e96258c"
+}

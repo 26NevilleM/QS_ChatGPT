@@ -1,0 +1,3 @@
+# Inbox
+
+Seed placeholder.
