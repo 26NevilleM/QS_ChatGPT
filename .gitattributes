@@ -1,4 +1,14 @@
-* text=auto eol=lf
-*.sh text eol=lf
-*.py text eol=lf
-*.json text eol=lf
+# Normalize all text files to LF in repo
+* text=auto
+
+# Force LF for these
+*.{sh,bash,zsh,md,txt,json,yml,yaml} eol=lf
+
+# Treat bin/media as binary
+*.{png,jpg,jpeg,gif,svg,ico,pdf,zip} binary
+
+# Keep scripts executable in the index
+scripts/* text eol=lf
+
+# Avoid linguist noise (if you add dist bundles later)
+dist/* linguist-vendored

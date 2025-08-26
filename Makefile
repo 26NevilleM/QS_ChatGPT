@@ -30,3 +30,10 @@ pack-import:
 
 pack-list:
 	@scripts/vault/pack_list.sh
+
+pack-verify:
+	@scripts/vault/pack_verify.sh $(FILE)
+
+.PHONY: vault-find
+vault-find:
+	@scripts/vault/vault_find.sh $(Q)
