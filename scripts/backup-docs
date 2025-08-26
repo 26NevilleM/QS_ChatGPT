@@ -23,13 +23,13 @@ out="$HOME/Downloads/qs_docs_backup_${ts}.zip"
 zip -q -9 "$out" "${FILES[@]}" 2>/dev/null || true
 
 echo "[OK] Backup created: $out"
-# --- Prune old backups: keep the 10 newest, delete the rest (safe) ---
-shopt -s nullglob 2>/dev/null || true   # bash; harmless elsewhere
-backups=( "$HOME"/Downloads/qs_docs_backup_*.zip )
-if ((${#backups[@]} > 10)); then
-  mapfile -t backups_sorted < <(ls -1t "${backups[@]}" 2>/dev/null || true)
-  to_delete=( "${backups_sorted[@]:10}" )
-  ((${#to_delete[@]})) && rm -f "${to_delete[@]}"
-fi
-shopt -u nullglob 2>/dev/null || true
+# --- Prune old backups: keep the 10 newest, delete the rest (portable) ---
+# Filenames are predictable (no spaces). Use ls -t + while loop (no xargs, no mapfile).
+count=0
+ls -1t "$HOME"/Downloads/qs_docs_backup_*.zip 2>/dev/null | while IFS= read -r f; do
+  count=$((count+1))
+  if [ "$count" -gt 10 ]; then
+    rm -f -- "$f"
+  fi
+done
 # --- end prune block ---
