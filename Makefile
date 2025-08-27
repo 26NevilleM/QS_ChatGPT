@@ -1,39 +1,19 @@
-.PHONY: vault-index vault-lint pack-export pack-import pack-list
-# Root Makefile
-SHELL := /bin/sh
+SLUG ?= followup_generator
 
-include mk/docs.mk
+.PHONY: test publish release drift catalog
 
+test:
+	@scripts/all_tests.sh "$(SLUG)"
 
-include mk/dev.mk
+publish:
+	@scripts/vault/promote_clean.sh -y "$(SLUG)"
+	@scripts/all_tests.sh "$(SLUG)"
 
-vault-init:
-	chmod +x scripts/vault/vault_init.sh scripts/vault/vault_tree.sh scripts/vault/vault_lint.sh scripts/vault/vault_backup.sh
-	scripts/vault/vault_init.sh
+release:
+	@scripts/release_prompt.sh "$(SLUG)"
 
-vault-tree:
-	scripts/vault/vault_tree.sh
+drift:
+	@scripts/vault/check_drift.sh "$(SLUG)"
 
-
-vault-index:
-	scripts/vault/vault_index.sh
-
-vault-lint:
-	scripts/vault/vault_lint.sh
-	make vault-index
-
-pack-export:
-	@scripts/vault/pack_export.sh
-
-pack-import:
-	@scripts/vault/pack_import.sh $(FILE)
-
-pack-list:
-	@scripts/vault/pack_list.sh
-
-pack-verify:
-	@scripts/vault/pack_verify.sh $(FILE)
-
-.PHONY: vault-find
-vault-find:
-	@scripts/vault/vault_find.sh $(Q)
+catalog:
+	@scripts/vault/rebuild_catalog.sh
