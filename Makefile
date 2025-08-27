@@ -30,3 +30,7 @@ quick2:
 	./scripts/compose_followup.sh "$(RECIP)" "$(SENDER)" $(DAYS) "$(CTX)" \
 	| tee tests/.runs/$$(date +%Y%m%d-%H%M%S)_followup.json \
 	| jq -r '.subject,.body' > /tmp/followup.txt && pbcopy < /tmp/followup.txt && echo "📋 Subject+Body copied"
+.PHONY: subject
+subject:
+	./scripts/compose_followup.sh "$(RECIP)" "$(SENDER)" $(DAYS) "$(CTX)" \
+	| jq -r '.subject' | pbcopy && echo "📋 Subject copied"
