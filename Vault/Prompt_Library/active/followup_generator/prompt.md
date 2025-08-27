@@ -44,3 +44,56 @@ State what this prompt is for and the main outcome.
 - [ ] Safety & legal disclaimers included
 ## Changelog
 - v1.0.0 — initial scaffold
+
+<!-- test edit @ 2025-08-26T19:04:28Z -->
+
+<!-- test marker -->
+<---
+
+## Safety & Verbs
+- Use assist / review / suggest / analyze; avoid absolutes or promises.
+- Keep tone neutral and non-authoritative.
+- Guidance only; **not legal advice**.
+
+## Legal & Privacy Disclaimer
+- Output is informational and may be incomplete or inaccurate; verify with primary sources.
+- Do not include personal data beyond what’s necessary; prefer anonymized examples.
+- You are responsible for complying with applicable policies, laws, and internal TEST CHANGE Tue 26 Aug 2025 21:07:13 SAST -->
+<---
+
+## Safety & Verbs
+- Use assist / review / suggest / analyze; avoid absolutes or promises.
+- Keep tone neutral and non-authoritative.
+- Guidance only; **not legal advice**.
+
+## Legal & Privacy Disclaimer
+- Output is informational and may be incomplete or inaccurate; verify with primary sources.
+- Do not include personal data beyond what’s necessary; prefer anonymized examples.
+- You are responsible for complying with applicable policies, laws, and internal TEST CHANGE Tue 26 Aug 2025 21:12:48 SAST -->
+<---
+
+## Safety & Verbs
+- Use assist / review / suggest / analyze; avoid absolutes or promises.
+- Keep tone neutral and non-authoritative.
+- Guidance only; **not legal advice**.
+
+## Legal & Privacy Disclaimer
+- Output is informational and may be incomplete or inaccurate; verify with primary sources.
+- Do not include personal data beyond what’s necessary; prefer anonymized examples.
+- You are responsible for complying with applicable policies, laws, and internal TEST CHANGE Tue 26 Aug 2025 21:15:03 SAST -->
+<---
+
+## Safety & Verbs
+- Use assist / review / suggest / analyze; avoid absolutes or promises.
+- Keep tone neutral and non-authoritative.
+- Guidance only; **not legal advice**.
+
+## Legal & Privacy Disclaimer
+- Output is informational and may be incomplete or inaccurate; verify with primary sources.
+- Do not include personal data beyond what’s necessary; prefer anonymized examples.
+- You are responsible for complying with applicable policies, laws, and internal TEST CHANGE Tue 26 Aug 2025 21:16:17 SAST -->
+
+<---
+
+## Safety & Verbs
+- Use assist
