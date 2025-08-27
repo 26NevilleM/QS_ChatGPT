@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+recip="${1:?recipient}"; shift
+sender="${1:-Neville}"; shift || true
+days="${1:-7}"; shift || true
+ctx="${*:-}"
+make -s quick RECIP="$recip" SENDER="$sender" DAYS="$days" CTX="$ctx"

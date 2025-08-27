@@ -1,26 +1,32 @@
-SLUG ?= followup_generator
+.PHONY: guard smoke followup
 
-.PHONY: test publish release drift catalog
+SANDBOX = Vault/Prompt_Library/sandbox/followup_generator/prompt.md
+ACTIVE  = Vault/Prompt_Library/active/followup_generator/prompt.md
 
-test:
-	@scripts/all_tests.sh "$(SLUG)"
+guard:
+	./scripts/guard_prompt.sh $(SANDBOX)
+	./scripts/guard_prompt.sh $(ACTIVE)
 
-publish:
-	@scripts/vault/promote_clean.sh -y "$(SLUG)"
-	@scripts/all_tests.sh "$(SLUG)"
+smoke:
+	@echo '{"recipient":"Taylor","sender":"Neville","last_contact_days":7,"context":"Quick smoke of the pipeline."}' > /tmp/fg_case.json
+	./scripts/run_followup.sh /tmp/fg_case.json | tee tests/.runs/$$(date +%Y%m%d-%H%M%S)_smoke.json
 
-release:
-	@scripts/release_prompt.sh "$(SLUG)"
+# Usage: make followup RECIP="Taylor" SENDER="Neville" DAYS=7 CTX="message context…"
+followup:
+	./scripts/compose_followup.sh "$(RECIP)" "$(SENDER)" $(DAYS) "$(CTX)" | tee tests/.runs/$$(date +%Y%m%d-%H%M%S)_followup.json
 
-drift:
-	@scripts/vault/check_drift.sh "$(SLUG)"
+.PHONY: quick
+# Usage: make quick RECIP="Taylor" SENDER="Neville" DAYS=7 CTX="context…"
+quick:
+	./scripts/compose_followup.sh "$(RECIP)" "$(SENDER)" $(DAYS) "$(CTX)" \
+	| tee tests/.runs/$$(date +%Y%m%d-%H%M%S)_followup.json \
+	| jq -r '.body' | pbcopy && echo "📋 Body copied to clipboard"
 
-catalog:
-	@scripts/vault/rebuild_catalog.sh
-
-# --- ad-hoc runner ---
-RUN_CASE ?= tests/cases/followup_generator_case4.json
-
-.PHONY: run
 run:
-	@scripts/run_followup.sh "$(RUN_CASE)"
+	./scripts/compose_followup.sh "$(RECIP)" "$(SENDER)" $(DAYS) "$(CTX)" | tee tests/.runs/$$(date +%Y%m%d-%H%M%S)_followup.json
+.PHONY: quick2
+# Copies subject and body to two files and puts body on clipboard
+quick2:
+	./scripts/compose_followup.sh "$(RECIP)" "$(SENDER)" $(DAYS) "$(CTX)" \
+	| tee tests/.runs/$$(date +%Y%m%d-%H%M%S)_followup.json \
+	| jq -r '.subject,.body' > /tmp/followup.txt && pbcopy < /tmp/followup.txt && echo "📋 Subject+Body copied"
