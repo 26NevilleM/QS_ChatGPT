@@ -97,3 +97,10 @@ State what this prompt is for and the main outcome.
 
 ## Safety & Verbs
 - Use assist
+
+<!-- INPUT CONTRACT (required by runner – do not remove) -->
+- Recipient: {{recipient}}
+- Sender: {{sender}}
+- Days since last contact: {{last_contact_days}}
+- Context:
+{{context}}
