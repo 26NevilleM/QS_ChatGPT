@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# SAFE runner (no set -euo); compatible with bash 3.2 on macOS
+# usage: scripts/run_followup.sh /path/to/case.json
+
+casefile="${1:?usage: run_followup.sh CASE.json}"
+
+# deps
+if ! command -v jq >/dev/null 2>&1; then
+  echo "jq is required. Install with: brew install jq" >&2
+  exit 1
+fi
+
+# read fields
+recipient="$(jq -r '.recipient' "$casefile")"
+sender="$(jq -r '.sender' "$casefile")"
+days="$(jq -r '.last_contact_days' "$casefile")"
+context="$(jq -r '.context' "$casefile")"
+
+# very simple message composer for now
+cat <<MSG
+Hi ${recipient},
+
+Just checking in — it’s been about ${days} day(s) since our last touchpoint.
+${context}
+
+If you’re up for it, would you like me to send over the next steps or a quick summary?
+
+Best,
+${sender}
+MSG

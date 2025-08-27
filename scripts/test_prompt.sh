@@ -23,7 +23,7 @@ for case in "$cases_dir"/*.json; do
   # Normalize output to remove unstable fields
   if command -v jq >/dev/null 2>&1; then
     mv "$out" "${out}.raw"
-    jq -f scripts/normalize_prompt_output.jq < "${out}.raw" > "$out" || cp "${out}.raw" "$out"
+    jq -f scripts/normalize_prompt_output.jq < "${out}.raw" > "$out" 2>/dev/null || cp "${out}.raw" "$out"
     rm -f "${out}.raw"
   fi
 

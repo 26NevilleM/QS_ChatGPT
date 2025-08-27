@@ -17,3 +17,10 @@ drift:
 
 catalog:
 	@scripts/vault/rebuild_catalog.sh
+
+# --- ad-hoc runner ---
+RUN_CASE ?= tests/cases/followup_generator_case4.json
+
+.PHONY: run
+run:
+	@scripts/run_followup.sh "$(RUN_CASE)"
