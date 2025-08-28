@@ -1,0 +1,26 @@
+{
+  "source": "email",
+  "submitted_at": "2025-08-28T16:15:00+02:00",
+  "contact": "Casey <casey@example.com>",
+  "summary": "Billing error on invoice #9001 — double charge",
+  "details": "Customer reports duplicate debit for July.",
+  "urgency": "low",
+  "category": "bug",
+  "next_steps": [
+    {
+      "step": "Acknowledge receipt",
+      "owner": "ops",
+      "due": "today"
+    },
+    {
+      "step": "Collect logs & repro steps",
+      "owner": "ops",
+      "due": "tomorrow"
+    },
+    {
+      "step": "Schedule review",
+      "owner": "ops",
+      "due": "next_business_day"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "source": "",
+  "submitted_at": "",
+  "contact": "",
+  "summary": "",
+  "details": "",
+  "urgency": "low",
+  "category": "general",
+  "next_steps": [
+    {
+      "step": "Acknowledge receipt",
+      "owner": "ops",
+      "due": "today"
+    },
+    {
+      "step": "Clarify requirements",
+      "owner": "ops",
+      "due": "tomorrow"
+    },
+    {
+      "step": "Schedule review",
+      "owner": "ops",
+      "due": "next_business_day"
+    }
+  ]
+}

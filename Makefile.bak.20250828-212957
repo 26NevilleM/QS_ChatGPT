@@ -52,10 +52,9 @@ run-case:
 	@[ -n "$$CASE" ] || (echo "Usage: make run-case CASE=tests/cases/ad_hoc.json" && exit 1)
 	bin/beast "$$CASE"
 
-
 run-all:
-	@set -e; \
-	for c in tests/cases/*.json; do \
-		echo "▶︎ $$c"; \
-		$(MAKE) run-case CASE="$$c" || { echo "❌ failed: $$c"; exit 1; }; \
+	@set -e; shopt -s nullglob || true; 
+	for c in tests/cases/*.json; do \\
+		echo "▶︎ $$c"; \\
+		$(MAKE) run-case CASE="$$c" || { echo "❌ failed: $$c"; exit 1; }; \\
 	done

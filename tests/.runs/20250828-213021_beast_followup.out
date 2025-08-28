@@ -4,17 +4,17 @@
 Generate a short, professional follow-up message to keep communication alive.
 
 ## Inputs
-- Recipient: {{recipient}}
-- Sender: {{sender}}
-- Days since last contact: {{last_contact_days}}
-- Context: {{context}}
+- Recipient: Taylor
+- Sender: Neville
+- Days since last contact: 7
+- Context: sanity check — minimal case
 
 ## Instructions
 - Compose a warm, concise message (80–150 words).
 - Acknowledge context if provided.
 - Suggest a gentle next step (e.g. question, proposal, confirmation).
 - Keep polite and non-pressuring.
-- Sign off as **{{sender}}**.
+- Sign off as **Neville**.
 
 ## Output format
 Return **only the message body**, no markdown headings or extra labels.

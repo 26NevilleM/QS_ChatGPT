@@ -1,98 +1,46 @@
 # Follow-up Message Generator
+
 ## Purpose
-State what this prompt is for and the main outcome.
-## Audience & Persona
-- Primary users:
-- Secondary users:
-- Tone:
+Generate a short, professional follow-up message to keep communication alive.
+
 ## Inputs
-- Required fields:
-- Optional fields:
-## Outputs
-- What the model should return:
-
-### Expected structure (bullets or JSON schema)
-- …
-
-### Example output
-- …
-## Constraints
-- Scope boundaries (what NOT to do)
-- Time/length limits, style constraints
-## Safety & Verbs
-- Use "assist / review / suggest / analyze"
-- Avoid absolutes; guidance only; **not legal advice**
-## Legal & Privacy Disclaimer
-- Informational only; verify with primary sources
-- Minimize personal data in examples
-- You are responsible for policy/legal compliance
-## Steps / Reasoning Hints
-1) …
-2) …
-3) …
-## Examples
-### Example 1 — Input
-### Example 1 — Output
-## Tool Use (if applicable)
-- Tools available
-- When to call
-- Fallback behavior if unavailable
-## Evaluation Checklist
-- [ ] Section coverage present
-- [ ] Outputs match schema
-- [ ] Edge cases covered
-- [ ] Safety & legal disclaimers included
-## Changelog
-- v1.0.0 — initial scaffold
-
-<---
-
-## Safety & Verbs
-- Use assist / review / suggest / analyze; avoid absolutes or promises.
-- Keep tone neutral and non-authoritative.
-- Guidance only; **not legal advice**.
-
-## Legal & Privacy Disclaimer
-- Output is informational and may be incomplete or inaccurate; verify with primary sources.
-- Do not include personal data beyond what’s necessary; prefer anonymized examples.
-<---
-
-## Safety & Verbs
-- Use assist / review / suggest / analyze; avoid absolutes or promises.
-- Keep tone neutral and non-authoritative.
-- Guidance only; **not legal advice**.
-
-## Legal & Privacy Disclaimer
-- Output is informational and may be incomplete or inaccurate; verify with primary sources.
-- Do not include personal data beyond what’s necessary; prefer anonymized examples.
-<---
-
-## Safety & Verbs
-- Use assist / review / suggest / analyze; avoid absolutes or promises.
-- Keep tone neutral and non-authoritative.
-- Guidance only; **not legal advice**.
-
-## Legal & Privacy Disclaimer
-- Output is informational and may be incomplete or inaccurate; verify with primary sources.
-- Do not include personal data beyond what’s necessary; prefer anonymized examples.
-<---
-
-## Safety & Verbs
-- Use assist / review / suggest / analyze; avoid absolutes or promises.
-- Keep tone neutral and non-authoritative.
-- Guidance only; **not legal advice**.
-
-## Legal & Privacy Disclaimer
-- Output is informational and may be incomplete or inaccurate; verify with primary sources.
-- Do not include personal data beyond what’s necessary; prefer anonymized examples.
-
-<---
-
-## Safety & Verbs
-- Use assist
-
-<!-- INPUT CONTRACT (required by runner – do not remove) -->
 - Recipient: {{recipient}}
 - Sender: {{sender}}
 - Days since last contact: {{last_contact_days}}
-{{context}}
+- Context: {{context}}
+
+## Instructions
+- Compose a warm, concise message (80–150 words).
+- Acknowledge context if provided.
+- Suggest a gentle next step (e.g. question, proposal, confirmation).
+- Keep polite and non-pressuring.
+- Sign off as **{{sender}}**.
+
+## Output format
+Return **only the message body**, no markdown headings or extra labels.
+
+## Style guardrails
+- Professional yet friendly tone.
+- No absolutes or promises; offer suggestions only.
+- Avoid personal data beyond what is provided.
+
+## Safety & Verbs
+Use “assist / review / suggest / analyze.”  
+Avoid absolutes; guidance only. **Not legal advice.**
+
+## Legal & Privacy Disclaimer
+Informational only; verify with primary sources.  
+Do not include personal data beyond what’s necessary.
+
+## Examples
+**Example input**  
+- Recipient: Jamie  
+- Sender: Neville  
+- Days since last contact: 5  
+- Context: Intro call about pricing  
+
+**Example output**  
+Hi Jamie,  
+I hope you’re doing well. It’s been a few days since our pricing call and I just wanted to check in. Did you have a chance to review the details? If you’d like, we can set up another time to go through any questions. No rush if you’re still considering. Looking forward to your thoughts.  
+Best,  
+Neville
