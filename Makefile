@@ -36,7 +36,7 @@ subject:
 	| jq -r '.subject' | pbcopy && echo "📋 Subject copied"
 triage:
 	@./scripts/triage "$(CASE)"
-triage:
+# triage:
 	@./scripts/triage "$(CASE)"
 
 triage-case:
@@ -46,3 +46,8 @@ triage-case:
 followup-case:
 	@[ -n "$$CASE" ] || (echo "Usage: make followup-case CASE=tests/cases/ad_hoc.json" && exit 1)
 	bin/beast-followup "$$CASE"
+
+.PHONY: run-case
+run-case:
+	@[ -n "$$CASE" ] || (echo "Usage: make run-case CASE=tests/cases/ad_hoc.json" && exit 1)
+	bin/beast "$$CASE"

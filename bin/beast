@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+case_json="${1:-}"
+if [[ -z "$case_json" ]]; then
+  echo "Usage: bin/beast <case.json>" >&2
+  exit 1
+fi
+if [[ ! -f "$case_json" ]]; then
+  echo "Case file not found: $case_json" >&2
+  exit 2
+fi
+
+root="/Users/neville/Library/CloudStorage/GoogleDrive-design@qsurgical.co.za/My Drive/QS_ChatGPT"
+triage_bin="$root/bin/beast-triage"
+follow_bin="$root/bin/beast-followup"
+
+command -v jq >/dev/null || { echo "❌ jq missing (brew install jq)"; exit 3; }
+command -v pbcopy >/dev/null && clippy=1 || clippy=0
+
+outdir="$root/tests/.runs"
+mkdir -p "$outdir"
+ts="$(date +%Y%m%d-%H%M%S)"
+
+echo "▶︎ Triage…"
+triage_log="$outdir/${ts}_triage.log"
+# We don't parse here—just show triage output and keep a log
+"$triage_bin" "$case_json" | tee "$triage_log" >/dev/tty || true
+echo "  ↳ saved: $triage_log"
+
+echo "▶︎ Compose follow-up…"
+follow_out="$outdir/${ts}_beast_followup.out"
+"$follow_bin" "$case_json" | tee "$follow_out"
+
+if [[ $clippy -eq 1 ]]; then
+  pbcopy < "$follow_out" && echo "📋 Copied composed message to clipboard."
+fi
+
+echo "✅ Done: $follow_out"
