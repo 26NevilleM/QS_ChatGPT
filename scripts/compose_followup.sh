@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
-recip="${1:?recipient name}"; shift
-sender="${1:?sender name}"; shift
-days="${1:?last_contact_days int}"; shift
+
+recip="${1:?Recipient name}"; shift
+sender="${1:?Sender name}"; shift
+days="${1:?Days since last contact (int)}"; shift
 context="${*:-}"
 
-tmpcase="$(mktemp -t fg_case_XXXX).json"
-jq -n \
-  --arg r "$recip" \
-  --arg s "$sender" \
-  --argjson d "$days" \
-  --arg c "$context" \
-  '{recipient:$r, sender:$s, last_contact_days:$d, context:$c}' > "$tmpcase"
+casefile="$(mktemp -t fg_case_XXXX).json"
+printf '{"context":%s,"recipient":%s,"sender":%s,"last_contact_days":%s}\n' \
+  "$(jq -Rs . <<<"$context")" \
+  "$(jq -Rs . <<<"$recip")" \
+  "$(jq -Rs . <<<"$sender")" \
+  "$days" > "$casefile"
 
-out="tests/.runs/$(date +%Y%m%d-%H%M%S)_followup.out"
-scripts/run_followup.sh "$tmpcase" | tee "$out"
-command -v pbcopy >/dev/null && pbcopy < "$out" && echo "📋 Copied to clipboard: $out"
+scripts/run_followup.sh "$casefile" > /tmp/fg_out.txt
+
+mkdir -p tests/.runs
+outfile="tests/.runs/$(date +%Y%m%d-%H%M%S)_followup.out"
+cp /tmp/fg_out.txt "$outfile"
+command -v pbcopy >/dev/null && pbcopy < "$outfile" && echo "📋 Copied to clipboard."
+echo "✅ Wrote: $outfile"

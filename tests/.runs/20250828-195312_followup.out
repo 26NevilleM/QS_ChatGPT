@@ -92,7 +92,7 @@ State what this prompt is for and the main outcome.
 - Use assist
 
 <!-- INPUT CONTRACT (required by runner – do not remove) -->
-- Recipient: {{recipient}}
-- Sender: {{sender}}
-- Days since last contact: {{last_contact_days}}
-{{context}}
+- Recipient: Taylor
+- Sender: Neville
+- Days since last contact: 7
+sanity check — minimal case

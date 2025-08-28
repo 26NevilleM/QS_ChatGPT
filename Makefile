@@ -34,3 +34,7 @@ quick2:
 subject:
 	./scripts/compose_followup.sh "$(RECIP)" "$(SENDER)" $(DAYS) "$(CTX)" \
 	| jq -r '.subject' | pbcopy && echo "📋 Subject copied"
+triage:
+	@./scripts/triage "$(CASE)"
+triage:
+	@./scripts/triage "$(CASE)"
