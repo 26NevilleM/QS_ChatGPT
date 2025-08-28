@@ -1,0 +1,7 @@
+{
+  "source": "email",
+  "submitted_at": "2025-08-28T15:30:00+02:00",
+  "contact": "Pat <pat@example.com>",
+  "summary": "App crash with error on startup — stack trace attached",
+  "details": "Occurs on v1.2.3, macOS 14.5. Crash after splash screen."
+}

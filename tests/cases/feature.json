@@ -1,0 +1,7 @@
+{
+  "source": "portal",
+  "submitted_at": "2025-08-28T15:32:00+02:00",
+  "contact": "Jordan <jordan@example.com>",
+  "summary": "Feature request: add webhook retries and backoff",
+  "details": "Helps integrate with flaky endpoints."
+}

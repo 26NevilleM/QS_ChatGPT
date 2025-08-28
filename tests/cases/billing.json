@@ -1,0 +1,7 @@
+{
+  "source": "email",
+  "submitted_at": "2025-08-28T15:31:00+02:00",
+  "contact": "Riley <riley@example.com>",
+  "summary": "Billing error on invoice #7789 — refund requested",
+  "details": "Charged twice for the same subscription period."
+}

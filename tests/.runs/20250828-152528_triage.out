@@ -1,0 +1,26 @@
+{
+  "source": "portal",
+  "submitted_at": "2025-08-28T15:32:00+02:00",
+  "contact": "Jordan <jordan@example.com>",
+  "summary": "Feature request: add webhook retries and backoff",
+  "details": "Helps integrate with flaky endpoints.",
+  "urgency": "low",
+  "category": "feature_request",
+  "next_steps": [
+    {
+      "step": "Acknowledge receipt",
+      "owner": "ops",
+      "due": "today"
+    },
+    {
+      "step": "Clarify requirements",
+      "owner": "ops",
+      "due": "tomorrow"
+    },
+    {
+      "step": "Schedule review",
+      "owner": "ops",
+      "due": "next_business_day"
+    }
+  ]
+}

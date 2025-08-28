@@ -1,0 +1,26 @@
+{
+  "source": "email",
+  "submitted_at": "2025-08-28T15:17:00+02:00",
+  "contact": "Taylor <taylor@example.com>",
+  "summary": "Customer reports billing error on invoice #4021 — urgent follow-up requested",
+  "details": "They said the amount is double what was expected. Provided screenshots. Outage not reported.",
+  "urgency": "high",
+  "category": "feature_request",
+  "next_steps": [
+    {
+      "step": "Acknowledge receipt",
+      "owner": "ops",
+      "due": "today"
+    },
+    {
+      "step": "Clarify requirements",
+      "owner": "ops",
+      "due": "tomorrow"
+    },
+    {
+      "step": "Escalate to on-call",
+      "owner": "ops",
+      "due": "next_business_day"
+    }
+  ]
+}
