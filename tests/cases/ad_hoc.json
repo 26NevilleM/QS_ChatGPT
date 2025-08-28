@@ -1,0 +1,7 @@
+{
+  "source": "email",
+  "submitted_at": "2025-08-28T16:15:00+02:00",
+  "contact": "Casey <casey@example.com>",
+  "summary": "Billing error on invoice #9001 — double charge",
+  "details": "Customer reports duplicate debit for July."
+}

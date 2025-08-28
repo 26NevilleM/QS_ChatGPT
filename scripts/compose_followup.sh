@@ -6,11 +6,13 @@ days="${1:?last_contact_days int}"; shift
 context="${*:-}"
 
 tmpcase="$(mktemp -t fg_case_XXXX).json"
-printf '{"context":%s,"recipient":%s,"sender":%s,"last_contact_days":%s}\n' \
-  "$(jq -Rs . <<<"$context")" \
-  "$(jq -Rs . <<<"$recip")" \
-  "$(jq -Rs . <<<"$sender")" \
-  "$days" > "$tmpcase"
+jq -n \
+  --arg r "$recip" \
+  --arg s "$sender" \
+  --argjson d "$days" \
+  --arg c "$context" \
+  '{recipient:$r, sender:$s, last_contact_days:$d, context:$c}' > "$tmpcase"
 
-scripts/run_followup.sh "$tmpcase" | tee /tmp/followup.out
-command -v pbcopy >/dev/null && pbcopy < /tmp/followup.out && echo "📋 Copied to clipboard."
+out="tests/.runs/$(date +%Y%m%d-%H%M%S)_followup.out"
+scripts/run_followup.sh "$tmpcase" | tee "$out"
+command -v pbcopy >/dev/null && pbcopy < "$out" && echo "📋 Copied to clipboard: $out"
