@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# Usage: bin/beast-triage <case.json>
+"/Users/neville/Library/CloudStorage/GoogleDrive-design@qsurgical.co.za/My Drive/QS_ChatGPT/scripts/triage" "$@"
