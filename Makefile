@@ -42,3 +42,7 @@ triage:
 triage-case:
 	@[ -n "$$CASE" ] || (echo "Usage: make triage-case CASE=tests/cases/ad_hoc.json" && exit 1)
 	bin/beast-triage "$$CASE" | jq -r ".category,.urgency"
+
+followup-case:
+	@[ -n "$$CASE" ] || (echo "Usage: make followup-case CASE=tests/cases/ad_hoc.json" && exit 1)
+	bin/beast-followup "$$CASE"
