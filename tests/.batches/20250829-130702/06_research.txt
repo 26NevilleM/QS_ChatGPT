@@ -1,0 +1,1 @@
+Email warmup practices for a new domain sending 100–300/day; ramp plan, DNS/auth (SPF/DKIM/DMARC), reputation monitoring; tools trade-offs.

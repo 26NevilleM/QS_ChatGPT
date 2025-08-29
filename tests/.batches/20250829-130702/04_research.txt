@@ -1,0 +1,1 @@
+Best lightweight analytics for a small B2B SaaS (under 5k MAU): PostHog vs Plausible vs GA4; privacy, funnels, self-host vs cloud.

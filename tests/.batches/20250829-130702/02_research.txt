@@ -1,0 +1,1 @@
+Evaluate 3 options for SOC2-ready logging pipeline for a 10-service microservices stack: Datadog vs New Relic vs OpenTelemetry + Loki—cost, vendor-lock, oncall noise.
