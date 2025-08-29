@@ -1,0 +1,10 @@
+{
+  "objective": "Extract a timeline of major decisions + owners from the email notes.",
+  "files": ["notes/email_summary.txt"],
+  "constraints": "One line per decision with date if present.",
+  "schema": {
+    "decisions": [{"date":"","summary":"","owner":""}],
+    "open_questions": [""],
+    "uncertainties": ""
+  }
+}
