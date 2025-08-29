@@ -1,0 +1,5 @@
+mkdir -p .github/workflows
+pbpaste > .github/workflows/smoketests.yml
+git add .github/workflows/smoketests.yml
+git commit -m "Add smoketests workflow"
+git push
