@@ -1,2 +1,2 @@
-https://example.com
-https://httpbin.org/uuid
+https://example.com/your-primary-source
+https://another-source.example/path
