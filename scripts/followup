@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+rec="${1:-Jordan}"; snd="${2:-Neville}"; days="${3:-3}"; shift 3 || true
+ctx="${*:-Confirm scope and dates}"
+tmp="$(mktemp -t fg_case_XXXX).json"
+printf "{\"recipient\":\"%s\",\"sender\":\"%s\",\"last_contact_days\":%s,\"context\":\"%s\"}\n" "$rec" "$snd" "$days" "$ctx" >"$tmp"
+scripts/run_followup.sh "$tmp"

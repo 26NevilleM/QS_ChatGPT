@@ -1,16 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 file="${1:?path to prompt.md}"
-required=( '{{recipient}}' '{{sender}}' '{{last_contact_days}}' '{{context}}' )
-missing=()
-for t in "${required[@]}"; do
-  if ! grep -qF -- "$t" "$file"; then
-    missing+=("$t")
-  fi
-done
-if ((${#missing[@]})); then
-  echo "❌ Missing required tokens in: $file"
-  printf '   - %s\n' "${missing[@]}"
-  exit 1
-fi
+need=( '{{recipient}}' '{{sender}}' '{{last_contact_days}}' '{{context}}' )
+miss=(); for t in "${need[@]}"; do grep -qF -- "$t" "$file" || miss+=("$t"); done
+((${#miss[@]})) && { printf "❌ Missing tokens in %s:\n" "$file"; printf "  - %s\n" "${miss[@]}"; exit 1; }
 echo "✅ Tokens present in $file"
