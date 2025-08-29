@@ -1,9 +1,15 @@
 {
-  "objective": "List Phase 1 deliverables, owners, and dates from our kick-off docs.",
+  "objective": "List Phase 1 deliverables, owners, and target dates from our kick-off materials.",
   "sources": [
-    "Kick-off notes (internal): section 'Scope & Deliverables'",
-    "Email summary thread (internal): timeline + owners"
+    "Kick-off notes (internal): Scope & Deliverables",
+    "Email summary thread (internal): timeline + owners",
+    "Any planning doc bullets you want considered here"
   ],
   "constraints": "Only include items you can justify from the sources. Put maybes in uncertainties.",
-  "schema": "{\n  \"deliverables\": [{\"title\":\"\",\"owner\":\"\",\"due\":\"\"}],\n  \"risks\": [\"\"],\n  \"open_questions\": [\"\"],\n  \"uncertainties\": \"\"\n}"
+  "schema": {
+    "deliverables": [{"title":"","owner":"","due":""}],
+    "risks": [""],
+    "open_questions": [""],
+    "uncertainties": ""
+  }
 }
