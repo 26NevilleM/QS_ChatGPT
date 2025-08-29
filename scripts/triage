@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-casefile="${1:?path to case .json}"
-scripts/run_triage.sh "$casefile" | jq -f scripts/triage_priority.jq
