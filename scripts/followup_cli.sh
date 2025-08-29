@@ -28,7 +28,9 @@ TXT
 
 # --- write + copy ---
 mkdir -p tests/.runs
-outfile="tests/.runs/$(date +%Y%m%d-%H%M%S)_followup.out"
+stamp="$(date +%Y%m%d-%H%M%S)"
+safe_recipient="${recipient// /_}"
+outfile="tests/.runs/${stamp}_${safe_recipient}_followup_${RANDOM}.out"
 
 # Keep these echos (your style hook can also add its own log line)
 printf "%s" "$msg" | tee "$outfile" >/dev/null

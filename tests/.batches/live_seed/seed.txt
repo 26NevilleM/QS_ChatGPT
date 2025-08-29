@@ -1,0 +1,3 @@
+Compare Notion vs Coda for product docs; permissions, templates, export to PDF
+Pick an email CRM for 3-person studio; Streak vs HubSpot free; mobile use, mail merge limits
+Lightweight error tracking for one Rails app; Sentry vs Rollbar; alert fatigue, pricing

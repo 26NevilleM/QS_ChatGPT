@@ -1,0 +1,3 @@
+Build vs buy for support chat (15 agents): Zendesk vs Intercom. Compare SLAs, workflow flexibility, reporting depth, rollout effort, total cost.
+SOC2-ready logging pipeline for 10 services: Datadog vs New Relic vs OpenTelemetry + Loki — cost, lock-in, oncall noise.
+Orthopedic screw machining vendor choice — Supplier A (local) vs Supplier B (overseas): cost, lead time, certifications, reliability.

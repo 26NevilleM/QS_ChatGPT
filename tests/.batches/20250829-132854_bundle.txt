@@ -1,0 +1,97 @@
+===== 01 =====
+-- Research --
+When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is beneficial for detailed analytics. Intercom provides superior workflow flexibility and ease of integration, making it faster to roll out. In terms of total cost, Zendesk may present a lower upfront investment but could lead to higher long-term costs depending on feature usage, while Intercom's pricing can escalate with additional capabilities.
+
+-- Follow-up --
+Hi Jordan,
+
+From my side: When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is benefi
+From my side: When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is beneficial for detailed analytics.
+
+It’s been 5 day(s) since we last connected. Build vs buy for support chat (15 agents): Zendesk vs Intercom. Compare SLAs, workflow flexibility, reporting depth, rollout effort, and total cost.
+
+If helpful, I can share a brief next step or answer any questions — whatever’s easiest on your side. No rush.
+
+Best,
+Neville
+
+===== 02 =====
+-- Research --
+When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is beneficial for detailed analytics. Intercom provides superior workflow flexibility and ease of integration, making it faster to roll out. In terms of total cost, Zendesk may present a lower upfront investment but could lead to higher long-term costs depending on feature usage, while Intercom's pricing can escalate with additional capabilities.
+
+-- Follow-up --
+Hi Jordan,
+
+From my side: When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is beneficial for detailed analytics.
+
+It’s been 5 day(s) since we last connected. Evaluate 3 options for SOC2-ready logging pipeline for a 10-service microservices stack: Datadog vs New Relic vs OpenTelemetry + Loki—cost, vendor-lock, oncall noise.
+
+If helpful, I can share a brief next step or answer any questions — whatever’s easiest on your side. No rush.
+
+Best,
+Neville
+
+===== 03 =====
+-- Research --
+When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is beneficial for detailed analytics. Intercom provides superior workflow flexibility and ease of integration, making it faster to roll out. In terms of total cost, Zendesk may present a lower upfront investment but could lead to higher long-term costs depending on feature usage, while Intercom's pricing can escalate with additional capabilities.
+
+-- Follow-up --
+Hi Jordan,
+
+From my side: When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is beneficial for detailed analytics.
+
+It’s been 5 day(s) since we last connected. Summarize the two leading options for AI meeting notes (Fireflies vs Fathom) for a 12-seat team; accuracy, CRM sync quality, pricing gotchas.
+
+If helpful, I can share a brief next step or answer any questions — whatever’s easiest on your side. No rush.
+
+Best,
+Neville
+
+===== 04 =====
+-- Research --
+When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is beneficial for detailed analytics. Intercom provides superior workflow flexibility and ease of integration, making it faster to roll out. In terms of total cost, Zendesk may present a lower upfront investment but could lead to higher long-term costs depending on feature usage, while Intercom's pricing can escalate with additional capabilities.
+
+-- Follow-up --
+Hi Jordan,
+
+From my side: When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is beneficial for detailed analytics.
+
+It’s been 5 day(s) since we last connected. Best lightweight analytics for a small B2B SaaS (under 5k MAU): PostHog vs Plausible vs GA4; privacy, funnels, self-host vs cloud.
+
+If helpful, I can share a brief next step or answer any questions — whatever’s easiest on your side. No rush.
+
+Best,
+Neville
+
+===== 05 =====
+-- Research --
+When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is beneficial for detailed analytics. Intercom provides superior workflow flexibility and ease of integration, making it faster to roll out. In terms of total cost, Zendesk may present a lower upfront investment but could lead to higher long-term costs depending on feature usage, while Intercom's pricing can escalate with additional capabilities.
+
+-- Follow-up --
+Hi Jordan,
+
+From my side: When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is beneficial for detailed analytics.
+
+It’s been 5 day(s) since we last connected. Compare Stripe Billing vs Paddle for international subscriptions (EU/UK/US): tax handling, dunning, payout cadence, fees, developer lift.
+
+If helpful, I can share a brief next step or answer any questions — whatever’s easiest on your side. No rush.
+
+Best,
+Neville
+
+===== 06 =====
+-- Research --
+When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is beneficial for detailed analytics. Intercom provides superior workflow flexibility and ease of integration, making it faster to roll out. In terms of total cost, Zendesk may present a lower upfront investment but could lead to higher long-term costs depending on feature usage, while Intercom's pricing can escalate with additional capabilities.
+
+-- Follow-up --
+Hi Jordan,
+
+From my side: When comparing Zendesk and Intercom for a 15-agent support chat solution, Zendesk typically offers more robust SLAs and greater reporting depth, which is beneficial for detailed analytics.
+
+It’s been 5 day(s) since we last connected. Email warmup practices for a new domain sending 100–300/day; ramp plan, DNS/auth (SPF/DKIM/DMARC), reputation monitoring; tools trade-offs.
+
+If helpful, I can share a brief next step or answer any questions — whatever’s easiest on your side. No rush.
+
+Best,
+Neville
+
