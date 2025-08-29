@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${BEAST_CONTACT_NAME:=Jordan}"
+: "${BEAST_SENDER_NAME:=Neville}"
+: "${BEAST_LAST_CONTACT_DAYS:=3}"
+context="${1:-}"
+
+# call the already-working runner wrapper
+scripts/followup_entry.sh "$BEAST_CONTACT_NAME" "$BEAST_SENDER_NAME" "$BEAST_LAST_CONTACT_DAYS" "$context"

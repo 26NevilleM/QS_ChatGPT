@@ -1,0 +1,6 @@
+Phase 1 scope & near-term decision points
+Competitive scan: top 3 alternatives and one-liner pros/cons
+Risk review: the 2 biggest unknowns and mitigation options
+Timeline sanity: quickest viable path to launch
+Stakeholder brief: what to tell the sponsor in 3 bullets
+Budget guardrails: where we’ll spend and where we won’t

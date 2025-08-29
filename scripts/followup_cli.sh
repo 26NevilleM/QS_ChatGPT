@@ -51,6 +51,6 @@ stamp="$(date +%Y%m%d-%H%M%S)"
 outfile="tests/.runs/${stamp}_followup.out"
 
 printf '%s\n' "$out" | tee "$outfile" >/dev/null
-command -v pbcopy >/dev/null && printf '%s' "$out" | pbcopy && echo "📋 Copied to clipboard."
+command -v pbcopy >/dev/null && printf '%s' "$out" | pbcopy && # echo "📋 Copied to clipboard." (style hook handles this)
 
-echo "✅ Wrote: $outfile"
+# echo "✅ Wrote…" (style hook handles this)

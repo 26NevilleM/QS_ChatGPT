@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# no-op triage helper to satisfy summarize_all
+exit 0

@@ -1,0 +1,1 @@
+Auto-summary: quick smoke test of Beast pipeline.

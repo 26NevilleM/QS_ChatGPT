@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+mkdir -p tests/.research_runs
+summary="Auto-summary: quick smoke test of Beast pipeline."
+stamp="$(date +%Y%m%d-%H%M%S)"
+out="tests/.research_runs/${stamp}_research.txt"
+printf "%s\n" "$summary" >"$out"
+echo "📝 Wrote research summary: $out"
+
+# trigger the post-research hook with the summary
+scripts/beast_hooks/after_research.sh "$summary"
