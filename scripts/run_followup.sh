@@ -6,6 +6,11 @@ recipient="$(jq -r .recipient "$casefile")"
 sender="$(jq -r .sender "$casefile")"
 days="$(jq -r .last_contact_days "$casefile")"
 context="$(jq -r .context "$casefile")"
+context="${context%..}"
+case "$context" in
+  *.) trail="" ;;  # already ended with a period
+  *)  trail="." ;;
+esac
 plural="s"; [ "$days" = "1" ] && plural=""
 
 # Compose a concise message body (no markdown headings)
