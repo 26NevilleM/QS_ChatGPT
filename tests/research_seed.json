@@ -1,9 +1,8 @@
 {
   "objective": "List Phase 1 deliverables, owners, and target dates from our kick-off materials.",
-  "sources": [
-    "Kick-off notes (internal): Scope & Deliverables",
-    "Email summary thread (internal): timeline + owners",
-    "Any planning doc bullets you want considered here"
+  "files": [
+    "notes/kickoff.txt",
+    "notes/email_summary.txt"
   ],
   "constraints": "Only include items you can justify from the sources. Put maybes in uncertainties.",
   "schema": {
