@@ -22,8 +22,3 @@ else
 fi
 printf "If helpful, I can share a brief next step or answer any questions — whatever is easiest on your side.\\n\\n"
 printf "Best,\\n%s\\n" "$sender"
-context="${context%%[[:space:]]}"
-case "$context" in
-  *.) trail="" ;;
-  *)  trail="." ;;
-esac
