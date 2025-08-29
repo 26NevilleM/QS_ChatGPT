@@ -1,56 +1,36 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Usage: scripts/followup_cli.sh /path/to/case.json [optional:/path/to/prompt.md]
-case_json="${1:?give case.json}"; shift || true
-prompt_path="${1:-}"
+# usage: scripts/followup_cli.sh /path/to/case.json
+casefile="${1:?usage: followup_cli.sh CASE.json}"
 
-# Dependencies
-command -v jq >/dev/null || { echo "❌ jq not installed"; exit 1; }
+# --- deps ---
+command -v jq >/dev/null || { echo "❌ jq missing"; exit 1; }
 
-# Default prompt location (active)
-DEFAULT_PROMPT="Vault/Prompt_Library/active/followup_generator/prompt.md"
+# --- read case ---
+recipient=$(jq -r '.recipient' "$casefile")
+sender=$(jq -r '.sender' "$casefile")
+days=$(jq -r '.last_contact_days' "$casefile")
+context=$(jq -r '.context' "$casefile")
 
-# Resolve prompt path
-if [[ -z "${prompt_path}" ]]; then
-  prompt_path="$DEFAULT_PROMPT"
-fi
+# --- compose message (plain; style hook can prettify later) ---
+msg=$(cat <<TXT
+Hi ${recipient},
 
-# Validate prompt path to avoid bare `cat`
-if [[ ! -f "$prompt_path" ]]; then
-  echo "❌ prompt file not found: $prompt_path"
-  echo "   (Set a custom path as 2nd arg if needed)"
-  exit 1
-fi
+It’s been ${days} day(s) since we last connected. ${context}
 
-# Read case fields
-recipient=$(jq -r '.recipient // empty' "$case_json"); : "${recipient:?missing recipient}"
-sender=$(jq -r '.sender // empty' "$case_json"); : "${sender:?missing sender}"
-days=$(jq -r '.last_contact_days // empty' "$case_json"); : "${days:?missing last_contact_days}"
-context=$(jq -r '.context // empty' "$case_json"); : "${context:?missing context}"
+If helpful, I can share a brief next step or answer any questions — whatever’s easiest on your side. No rush.
 
-# Read template safely (no naked cat)
-template_content="$(<"$prompt_path")"
+Best,
+${sender}
+TXT
+)
 
-# Escape for sed replacement
-esc() {
-  # escape &, / and \ for sed replacement
-  printf '%s' "$1" | sed -e 's/[\/&]/\\&/g' -e 's/\\/\\\\/g'
-}
-
-# Perform token replacements
-out="$template_content"
-out="${out//\{\{recipient\}\}/$(esc "$recipient")}"
-out="${out//\{\{sender\}\}/$(esc "$sender")}"
-out="${out//\{\{last_contact_days\}\}/$(esc "$days")}"
-out="${out//\{\{context\}\}/$(esc "$context")}"
-
-# Output + persist
+# --- write + copy ---
 mkdir -p tests/.runs
-stamp="$(date +%Y%m%d-%H%M%S)"
-outfile="tests/.runs/${stamp}_followup.out"
+outfile="tests/.runs/$(date +%Y%m%d-%H%M%S)_followup.out"
 
-printf '%s\n' "$out" | tee "$outfile" >/dev/null
-command -v pbcopy >/dev/null && printf '%s' "$out" | pbcopy && # echo "📋 Copied to clipboard." (style hook handles this)
-
-# echo "✅ Wrote…" (style hook handles this)
+# Keep these echos (your style hook can also add its own log line)
+printf "%s" "$msg" | tee "$outfile" >/dev/null
+command -v pbcopy >/dev/null && printf "%s" "$msg" | pbcopy && echo "📋 Copied to clipboard."
+echo "✅ Wrote: $outfile"
